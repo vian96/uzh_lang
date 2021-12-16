@@ -71,6 +71,8 @@ Lexem *read_code_lexem (const char *file_name)
         }
 
     DEB ("Read all lexems\n");
+    lexs[cur_pos].type = LEX_SPACE;
+    cur_pos++;
     lexs[cur_pos].type = LEX_TERM;
     free_file_text (&code);
     DEB ("Freed file\n");
@@ -128,6 +130,7 @@ Lexem read_lexem (const char **str)
     case '+':
     case '^':
     case ':':
+    case ',':
         COPY_STR (1);
         break;
 
@@ -150,6 +153,7 @@ Lexem read_lexem (const char **str)
         printf ("Unexpected symbol %c\n", **str);
         break;
     }
+#undef COPY_STR
     
     return to_ret;
     }
@@ -157,7 +161,7 @@ Lexem read_lexem (const char **str)
 // TODO unused function, remove it
 int is_lexem_oper (int sym)
     {
-    return sym && (bool) strchr ("+-*/^<>=!|&():", sym);
+    return sym && (bool) strchr ("+-*/^<>=!|&():,", sym);
     }
 
 char *copy_str_if (const char **str, int (*cond)(int))

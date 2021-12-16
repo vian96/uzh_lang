@@ -1,3 +1,6 @@
+#ifndef UZH_LEXER_H
+#define UZH_LEXER_H
+
 // included for size_t
 #include <string.h>
 
@@ -5,10 +8,10 @@ typedef int LexNum;
 
 enum LexemType {
     LEX_TERM = 0,
-    LEX_NUM = 1,
-    LEX_ID = 2,
-    LEX_SYM = 3,
-    LEX_SPACE = 4,
+    LEX_NUM = 'N',
+    LEX_ID = 'I',
+    LEX_SYM = 'S',
+    LEX_SPACE = '_',
 };
 
 struct Lexem {
@@ -29,3 +32,5 @@ char *copy_str_if (const char **str, int (*cond)(int));
 void print_lexems (Lexem *code);
 
 void free_lexems (Lexem *code);
+
+#endif // UZH_LEXER_H

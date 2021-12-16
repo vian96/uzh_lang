@@ -1,7 +1,5 @@
-def F(n):
-    return n * F(n)*(n-1)/37 + 45454-454*45
+def Func(a):
+    b = c
 
-
-print (F (42)  + 231  )
-const var = 36 <= 23 anim)
-#read 13+12312+4+124+12+4216412451244512644562--asfsdfafsa
+def main():
+    d = e

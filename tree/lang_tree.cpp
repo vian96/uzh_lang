@@ -12,7 +12,7 @@
 #define DEB(...) printf (__VA_ARGS__)
 // #define DEB(...) 
 
-void lang_tree_lang_ctor (LangTree *tree, LangTreeType type, LTNum num, char *str, 
+void lang_tree_lang_ctor (LangTree *tree, LangTree *parent, LangTreeType type, LTNum num, char *str, 
                      LangTreeOper oper, LangTreeUtil util, LangTree *left, LangTree *right)
     {
     assert (tree);
@@ -24,6 +24,7 @@ void lang_tree_lang_ctor (LangTree *tree, LangTreeType type, LTNum num, char *st
     tree->util = util;
     tree->left = left;
     tree->right = right;
+    tree->parent = parent;
     }
 
 void free_tree_lang (LangTree *tree)
@@ -37,11 +38,11 @@ void free_tree_lang (LangTree *tree)
     free (tree);
     }
 
-LangTree *new_lang_tree (LangTreeType type, LTNum num, char *str, 
+LangTree *new_lang_tree (LangTreeType type, LangTree *parent, LTNum num, char *str, 
                      LangTreeOper oper, LangTreeUtil util, LangTree *left, LangTree *right)
     {
     LangTree *tree = (LangTree*) calloc (1, sizeof (*tree));
-    lang_tree_lang_ctor (tree, type, num, str, oper, util, left, right);
+    lang_tree_lang_ctor (tree, parent, type, num, str, oper, util, left, right);
     return tree;
     }
     
@@ -71,10 +72,15 @@ LangTree *new_lt_num (LTNum num, LangTree *parent, LangTree *left, LangTree *rig
 
 LangTree *new_lt_id (char *name, LangTree *parent, LangTree *left, LangTree *right)
     {
-    LangTree *to_ret = new_lang_tree (LT_NUM, parent, 0, strdup (name));
+    LangTree *to_ret = new_lang_tree (LT_ID, parent, 0, strdup (name));
     to_ret->left = left;
     to_ret->left = right;
     return to_ret;
+    }
+
+LangTree *new_lt_empty (LangTree *parent)
+    {
+    return new_lang_tree (LT_EMPTY, parent);
     }
 
 LangTree *read_lang_tree (const char **str, LangTree *parent)
@@ -300,4 +306,48 @@ LangTreeUtil get_lt_util (const char **str)
     return LTU_INVALID;
     }
 
+void lang_tree_dump (const LangTree *tree, FILE *f_out, int depth)
+    {
+    assert (tree);
+    assert (f_out);
+
+    if (tree->type == LT_EMPTY)
+        return;
+    
+    if (tree->left)
+        lang_tree_dump (tree->left, f_out, depth + 4);
+
+    printf ("\n%*s%c", depth, "", tree->type);
+
+    switch (tree->type)
+    {
+    case LT_ID:
+        fprintf (f_out, "%s ", tree->str);
+        break;
+    
+    case LT_NUM:
+        fprintf (f_out, "%d ", tree->num);
+        break;
+    
+    case LT_UTIL:
+        fprintf (f_out, "%c ", tree->util);
+        break;
+
+    case LT_OPER:
+        fprintf (f_out, "%c ", tree->oper);
+        break;
+
+    case LT_INVALID:
+        fprintf (f_out, "invalid type ");    
+    case LT_EMPTY:
+        break;
+
+    default:
+        fprintf (f_out, "Unknown type ");
+        break;
+    }
+    
+    if (tree->right)
+        lang_tree_dump (tree->right, f_out, depth + 4);
+    }
 

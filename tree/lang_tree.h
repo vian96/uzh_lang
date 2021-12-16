@@ -1,12 +1,17 @@
+#ifndef UZH_LANG_TREE_H
+#define UZH_LANG_TREE_H
+
+#include <stdio.h>
 
 typedef int LTNum;
 
 enum LangTreeType {
     LT_INVALID = 0,
-    LT_UTIL = 1,
-    LT_NUM = 2,
-    LT_ID = 3,
-    LT_OPER = 4,
+    LT_UTIL = 'U',
+    LT_NUM = 'N',
+    LT_ID = 'I',
+    LT_OPER = 'O',
+    LT_EMPTY = 'E',
 };
 
 enum LangTreeOper {
@@ -43,36 +48,43 @@ enum LangTreeUtil {
 
 struct LangTree {
     LangTreeType type;
+
     LTNum num;
     char *str;
     LangTreeOper oper;
     LangTreeUtil util;
+    
     LangTree *left;
     LangTree *right;
+    LangTree *parent;
 };
 
-void lang_tree_lang_ctor (LangTree *tree, LangTree *parent, LangTreeType type, LTNum num = 0, char *str = nullptr, 
+void lang_tree_lang_ctor (LangTree *tree, LangTree *parent = nullptr, LangTreeType type = LT_INVALID, LTNum num = 0, char *str = nullptr, 
                           LangTreeOper oper = LTO_INVALID, LangTreeUtil util = LTU_INVALID, 
                           LangTree *left = nullptr, LangTree *right = nullptr);
 
 void free_tree_lang (LangTree *tree);
 
-LangTree *new_lang_tree (LangTreeType type, LangTree *parent, LTNum num = 0, char *str = nullptr, 
+LangTree *new_lang_tree (LangTreeType type, LangTree *parent = nullptr, LTNum num = 0, char *str = nullptr, 
                               LangTreeOper oper = LTO_INVALID, LangTreeUtil util = LTU_INVALID, 
                               LangTree *left = nullptr, LangTree *right = nullptr);
 
-LangTree *new_lt_op (LangTreeOper oper, LangTree *parent, LangTree *left = nullptr, LangTree *right = nullptr);
+LangTree *new_lt_op (LangTreeOper oper, LangTree *parent = nullptr, LangTree *left = nullptr, LangTree *right = nullptr);
 
-LangTree *new_lt_util (LangTreeUtil util, LangTree *parent, LangTree *left = nullptr, LangTree *right = nullptr);
+LangTree *new_lt_util (LangTreeUtil util, LangTree *parent = nullptr, LangTree *left = nullptr, LangTree *right = nullptr);
 
-LangTree *new_lt_num (LTNum num, LangTree *parent, LangTree *left = nullptr, LangTree *right = nullptr);
+LangTree *new_lt_num (LTNum num, LangTree *parent = nullptr, LangTree *left = nullptr, LangTree *right = nullptr);
 
-LangTree *new_lt_id (char *name, LangTree *parent, LangTree *left = nullptr, LangTree *right = nullptr);
+LangTree *new_lt_id (char *name, LangTree *parent = nullptr, LangTree *left = nullptr, LangTree *right = nullptr);
 
-LangTree *read_lang_tree (const char *str, LangTree *parent);
+LangTree *new_lt_empty (LangTree *parent = nullptr);
+
+LangTree *read_lang_tree (const char *str, LangTree *parent = nullptr);
 
 LangTreeOper get_lt_oper (const char **str);
 
 LangTreeUtil get_lt_util (const char **str);
 
-// TODO free of tree
+void lang_tree_dump (const LangTree *tree, FILE *f_out, int depth = 0);
+
+#endif // UZH_LANG_TREE_H
