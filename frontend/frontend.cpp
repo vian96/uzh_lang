@@ -239,6 +239,9 @@ LangTree *read_var (Lexem **code, LangTree *parent)
     assert (code);
     assert (*code);
 
+    if (lex->type == LEX_NUM)
+        return  new_lt_num (lex->number, parent);
+
     if (lex->type != LEX_ID)
         return nullptr;
     
