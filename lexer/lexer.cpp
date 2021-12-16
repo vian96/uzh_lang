@@ -6,8 +6,8 @@
 #include <ctype.h>
 #include <string.h>
 
-#define DEB(...) printf (__VA_ARGS__)
-// #define DEB(...) 
+// #define DEB(...) printf (__VA_ARGS__)
+#define DEB(...) 
 
 LexemFile read_code_lexem (const char *file_name)
     {
@@ -148,4 +148,37 @@ char *copy_str_if (const char **str, int (*cond)(int))
     return to_ret;
     }
 
+void print_lexems (LexemFile code)
+    {
+    for (int i = 0; i < code.cnt; i++)
+        {
+        Lexem *temp = code.lexs + i;
+        switch (temp->type)
+        {
+        case LEX_ID:
+        case LEX_SYM:
+            printf ("%s ", temp->str);
+            break;
+
+        case LEX_NUM:
+            printf ("%d ", temp->number);
+            break;
+
+        case LEX_SPACE:
+            printf ("\n%*s", temp->cnt, "");
+            break;
+
+        default:
+            printf ("ERROR: unknown type of lex\n");
+            break;
+        }
+        }
+    }
+
+void free_lexems (LexemFile code)
+    {
+    for (size_t i = 0; i < code.cnt; i++)
+        free (code.lexs[i].str);
+    free (code.lexs);
+    }
 

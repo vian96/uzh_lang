@@ -29,3 +29,7 @@ Lexem read_lexem (const char **str);
 int is_lexem_oper (int sym);
 
 char *copy_str_if (const char **str, int (*cond)(int));
+
+void print_lexems (LexemFile code);
+
+void free_lexems (LexemFile code);
