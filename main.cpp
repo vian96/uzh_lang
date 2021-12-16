@@ -4,7 +4,7 @@
 
 int main ()
     {
-    LexemFile code = read_code_lexem ("code.uzh");
+    Lexem *code = read_code_lexem ("code.uzh");
     print_lexems (code);
     free_lexems (code);
     
