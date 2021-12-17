@@ -22,7 +22,7 @@ enum LangTreeOper {
     LTO_POW = '^',
     // compare
     LTO_L = '<', LTO_G = 'g',
-    LTO_LEQ = 'm', LTO_GEQ = 'n',
+    LTO_LEQ = 'm', LTO_GEQ = 'b',
     LTO_EQ = 'e', LTO_NEQ = 'n',
     // logic
     LTO_OR = '|', LTO_AND = '&', LTO_NOT = '!',

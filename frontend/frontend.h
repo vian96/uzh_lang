@@ -24,5 +24,22 @@ LangTree *read_if (Lexem **code, int n, LangTree *parent);
 
 LangTree *read_var (Lexem **code, LangTree *parent);
 
+LangTree *read_and (Lexem **code, LangTree *parent);
+
+LangTree *read_eq (Lexem **code, LangTree *parent);
+
+LangTree *read_comp (Lexem **code, LangTree *parent);
+
+LangTree *read_sum (Lexem **code, LangTree *parent);
+
+LangTree *read_mul (Lexem **code, LangTree *parent);
+
+LangTree *read_pow (Lexem **code, LangTree *parent);
+
+LangTree *read_neg (Lexem **code, LangTree *parent);
+
+LangTree *read_brack (Lexem **code, LangTree *parent);
+
+LangTree *read_func_call (Lexem **code, LangTree *parent);
 
 #endif // UZH_FRONTEND_H

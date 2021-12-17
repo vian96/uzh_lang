@@ -1,6 +1,13 @@
-def Func(a):
-    b[2] = c
-    f = 28
+glob = 17 * x[27]
+
+def cal (g, r):
+    if glob:
+        k = k <= 4
+    else:
+        return 27
 
 def main():
-    d = e
+    g[36] = cal(glob[18]) + 9
+    if g[4 + 5] <= 24:
+        f(x)
+     

@@ -5,7 +5,7 @@ function := def id ( {id [, id]} ): \n block(4)
 block(n) := [space(n) [statement(n) | while(n) | if(n)] ]*
 
 while(n) := while expression: block(n+4)
-if(n) := if expression: block(n+4)
+if(n) := if expression: block(n+4) {space(n) else: block(n+4)}
 
 statement := [assignment | expression | return]
 assignment := var '=' expression
@@ -18,8 +18,10 @@ comp := sum [[< | > | <= | >=] sum]*
 sum := mul [[+ | -] mul]*
 mul := pow [[* | /] pow]*
 
-pow := [!]* brack
-brack := [ [sin | cos | ln print | scan] ( var ) ] | var
+pow := neg [[* | /] neg]*
+neg := [!]* brack
+// TODO scan is zero-arg oper, i did in code but did not change grammar
+brack := [ [sin | cos | ln | print | scan] ( var ) ] | var
 
 var := number | ( expression ) | func_call | id {[expression]}
 func_call := id ( {expression [, expression]} )

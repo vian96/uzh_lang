@@ -196,27 +196,39 @@ char *copy_str_if (const char **str, int (*cond)(int))
 void print_lexems (Lexem *code)
     {
     for (size_t i = 0; code[i].type != LEX_TERM; i++)
-        {
-        Lexem *temp = code + i;
-        switch (temp->type)
+        print_lexem (code[i]);
+    printf ("\n");
+    }
+
+void print_lexem_line (Lexem *code)
+    {
+    printf ("Lex:");
+    // !i is for printing first spaces in line
+    for (size_t i = 0; code[i].type != LEX_TERM && (code[i].type != LEX_SPACE || !i); i++)
+        print_lexem (code[i]);
+    printf ("\n\n");
+    }
+
+void print_lexem (Lexem lex)
+    {
+    switch (lex.type)
         {
         case LEX_ID:
         case LEX_SYM:
-            printf ("%s ", temp->str);
+            printf ("%s ", lex.str);
             break;
 
         case LEX_NUM:
-            printf ("%d ", temp->number);
+            printf ("%d ", lex.number);
             break;
 
         case LEX_SPACE:
-            printf ("\n%*s", temp->cnt, "");
+            printf ("\n%*s", lex.cnt, "");
             break;
 
         default:
             printf ("ERROR: unknown type of lex\n");
             break;
-        }
         }
     }
 

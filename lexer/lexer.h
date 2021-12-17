@@ -31,6 +31,10 @@ char *copy_str_if (const char **str, int (*cond)(int));
 
 void print_lexems (Lexem *code);
 
+void print_lexem_line (Lexem *code);
+
+void print_lexem (Lexem lex);
+
 void free_lexems (Lexem *code);
 
 #endif // UZH_LEXER_H
