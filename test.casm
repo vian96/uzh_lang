@@ -11,47 +11,51 @@ push 0
     push 2
     add
     ; index
-push 9
-    add
-    pop cx
-pop [cx]
-push 0
-; getting var i
-    push bx
-    push 12
+push 50
     add
     pop cx
 pop [cx]
 in
-; getting var ask
+; getting var n
     push bx
-    push 13
+    push 1
     add
     pop cx
 pop [cx]
-; starting if 0
-; getting var ask
+push 1
+; getting var i
     push bx
-    push 13
+    push 53
     add
     pop cx
-push [cx]
-   push 0
-    je :false_branch_if_0
-; true branch of if
+pop [cx]
+push 1
+; getting var x
+    push bx
+    push 2
+    add
+    ; index
+push 0
+    add
+    pop cx
+pop [cx]
 ; starting while 0
     :begin_of_while_0
 ; getting var i
     push bx
-    push 12
+    push 53
     add
     pop cx
 push [cx]
-push 10
-less
+; getting var n
+    push bx
+    push 1
+    add
+    pop cx
+push [cx]
+leq
    push 0
     je :end_of_while_0
-in
 ; getting var x
     push bx
     push 2
@@ -59,7 +63,30 @@ in
     ; index
 ; getting var i
     push bx
-    push 12
+    push 53
+    add
+    pop cx
+push [cx]
+push 1
+sub
+    add
+    pop cx
+push [cx]
+; getting var i
+    push bx
+    push 53
+    add
+    pop cx
+push [cx]
+mul
+; getting var x
+    push bx
+    push 2
+    add
+    ; index
+; getting var i
+    push bx
+    push 53
     add
     pop cx
 push [cx]
@@ -68,7 +95,7 @@ push [cx]
 pop [cx]
 ; getting var i
     push bx
-    push 12
+    push 53
     add
     pop cx
 push [cx]
@@ -76,75 +103,24 @@ push 1
 add
 ; getting var i
     push bx
-    push 12
+    push 53
     add
     pop cx
 pop [cx]
     jmp :begin_of_while_0
     :end_of_while_0
-push 0
-; getting var i
-    push bx
-    push 12
-    add
-    pop cx
-pop [cx]
-; starting while 1
-    :begin_of_while_1
-; getting var i
-    push bx
-    push 12
-    add
-    pop cx
-push [cx]
-push 10
-less
-   push 0
-    je :end_of_while_1
-; getting var i
-    push bx
-    push 12
-    add
-    pop cx
-push [cx]
-out
-push 10
 ; getting var x
     push bx
     push 2
     add
     ; index
-; getting var i
+; getting var n
     push bx
-    push 12
+    push 1
     add
     pop cx
 push [cx]
     add
     pop cx
 push [cx]
-mul
 out
-; getting var i
-    push bx
-    push 12
-    add
-    pop cx
-push [cx]
-push 1
-add
-; getting var i
-    push bx
-    push 12
-    add
-    pop cx
-pop [cx]
-    jmp :begin_of_while_1
-    :end_of_while_1
-push 2
-out
-    jmp :end_of_if_0
-    :false_branch_if_0
-push 1
-out
-    :end_of_if_0
