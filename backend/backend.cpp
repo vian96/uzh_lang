@@ -17,7 +17,9 @@ void compile_lang (LangTree *tree, FILE *f_out)
 
     fprintf (f_out, "; This file was autmatically compiled by "
              "Uzh lang compiler\n"
+             "; register bx is used for pointing to begin of local vars\n"
              "; register cx is used for temporary using of var address\n"
+             "; register dx is used for returning values from func\n"
              "\njmp :main\n\n");
     
     init_name_tables ();
@@ -236,7 +238,7 @@ void compile_tree (LangTree *tree, FILE *f_out, int *depth)
         fprintf (f_out, "   push 0\n    je :end_of_while_%d\n", cur_while_ind);
         compile_tree (tree->right, f_out);
         fprintf (f_out, "    jmp :begin_of_while_%d\n    :end_of_while_%d\n", cur_while_ind, cur_while_ind);
-        
+
         return;
         }
 

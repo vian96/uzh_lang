@@ -82,7 +82,7 @@ LangTree *read_func (Lexem **code, LangTree *parent)
                 param->parent->left = param;
                 param = param->parent;
                 
-                param->right = new_lt_id (lex->str);
+                param->right = new_lt_id (lex->str, param);
                 lex++;
                 if (!is_sym (","))
                     break;
