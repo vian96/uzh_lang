@@ -21,7 +21,7 @@ enum LangTreeOper {
     LTO_MUL = '*', LTO_DIV = '/',
     LTO_POW = '^',
     // compare
-    LTO_L = '<', LTO_G = 'g',
+    LTO_L = '<', LTO_G = '>',
     LTO_LEQ = 'm', LTO_GEQ = 'b',
     LTO_EQ = 'e', LTO_NEQ = 'n',
     // logic
@@ -86,5 +86,12 @@ LangTreeOper get_lt_oper (const char **str);
 LangTreeUtil get_lt_util (const char **str);
 
 void lang_tree_dump (const LangTree *tree, FILE *f_out, int depth = 0);
+
+void lang_tree_graph_node(const LangTree *tree, FILE *gv_out);
+
+void lang_tree_graph_arrow(const LangTree *tree, FILE *gv_out);
+
+void lang_tree_graph_dump(const LangTree *tree);
+
 
 #endif // UZH_LANG_TREE_H

@@ -1,0 +1,1 @@
+"../study_tasks/asm/asm/asm" test.casm

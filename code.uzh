@@ -1,13 +1,18 @@
-glob = 17 * x[27]
+def main(k, n):
+    x[9] = 0
+    i = 0
+    ask = input 
+    if ask:
+        while i < 10:
+            x[i] = input
+            i = i + 1
 
-def cal (g, r):
-    if glob:
-        k = k <= 4
+        i = 0
+        while i < 10:
+            print (i)
+            print (10*x[i])
+            i = i + 1
+        print (2)
     else:
-        return 27
-
-def main():
-    g[36] = cal(glob[18]) + 9
-    if g[4 + 5] <= 24:
-        f(x)
-     
+        print (1)
+    

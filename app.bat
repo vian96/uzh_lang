@@ -1,0 +1,1 @@
+"../study_tasks/asm/cpu/cpu" test.boac

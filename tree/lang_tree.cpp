@@ -310,9 +310,6 @@ void lang_tree_dump (const LangTree *tree, FILE *f_out, int depth)
     {
     assert (tree);
     assert (f_out);
-
-    if (tree->type == LT_EMPTY)
-        return;
     
     if (tree->left)
         lang_tree_dump (tree->left, f_out, depth + 4);
@@ -340,6 +337,7 @@ void lang_tree_dump (const LangTree *tree, FILE *f_out, int depth)
     case LT_INVALID:
         fprintf (f_out, "invalid type ");    
     case LT_EMPTY:
+        fprintf (f_out, "empty ");
         break;
 
     default:
@@ -350,4 +348,132 @@ void lang_tree_dump (const LangTree *tree, FILE *f_out, int depth)
     if (tree->right)
         lang_tree_dump (tree->right, f_out, depth + 4);
     }
+
+
+void lang_tree_graph_node(const LangTree *tree, FILE *gv_out)
+    {
+    assert(tree);
+    assert(gv_out);
+
+    fprintf(gv_out, "\t%lu[shape=record, label=\"", tree);
+
+    switch (tree->type)
+    {
+    case LT_UTIL:
+        switch (tree->util)
+        {
+        case LTU_STM:
+            fprintf (gv_out, "Statement");
+            break;
+        case LTU_DEF:
+            fprintf (gv_out, "Definition");
+            break;
+        case LTU_FUNC:
+            fprintf (gv_out, "Funcction");
+            break;
+        case LTU_ASSIGN:
+            fprintf (gv_out, "=");
+            break;
+        case LTU_RET:
+            fprintf (gv_out, "Return");
+            break;
+        case LTU_PARAM:
+            fprintf (gv_out, "Param");
+            break;
+        case LTU_IF:
+            fprintf (gv_out, "If");
+            break;
+        case LTU_WHILE:
+            fprintf (gv_out, "While");
+            break;
+        case LTU_DECIS:
+            fprintf (gv_out, "Decision");
+            break;
+        case LTU_CALL:
+            fprintf (gv_out, "Call");
+            break;
+        
+        default:
+            fprintf (gv_out, "Invalid");
+            break;
+        }
+        break;
+    
+    case LT_NUM:
+        fprintf (gv_out, "%d", tree->num);
+        break;
+    
+    case LT_ID:
+        fprintf (gv_out, "%s", tree->str);
+        break;
+
+    case LT_OPER:
+        if (tree->oper != '>' && tree->oper != '<')
+            fprintf (gv_out, "%c", tree->oper);
+        else    
+            if (tree->oper == '>')
+                fprintf (gv_out, "greater");
+            else
+                fprintf (gv_out, "less");
+        break;
+
+    case LT_EMPTY:
+        fprintf (gv_out, "null");
+        break;
+
+    default:
+        fprintf (gv_out, "Unknown\n");
+        break;
+    }
+    
+    fprintf (gv_out, "\"];\n");
+
+    if (tree->left) 
+        lang_tree_graph_node (tree->left, gv_out);
+    if (tree->right) 
+        lang_tree_graph_node (tree->right, gv_out);
+    }
+
+void lang_tree_graph_arrow(const LangTree *tree, FILE *gv_out)
+    {
+    assert(tree);
+    assert(gv_out);
+
+    if (tree->left)
+        fprintf(gv_out, "\t%lu -> %lu[fontsize=12]\n", tree, tree->left);
+
+    if (tree->right)
+        fprintf(gv_out, "\t%lu -> %lu[fontsize=12]\n", tree, tree->right);
+
+    if (tree->left)
+        lang_tree_graph_arrow (tree->left, gv_out);
+    if (tree->right)
+        lang_tree_graph_arrow (tree->right, gv_out);
+    }
+
+void lang_tree_graph_dump(const LangTree *tree)
+    {
+    FILE *gv_out = fopen ("lang_tree.gv", "w");
+
+    fprintf (gv_out, "# This is automatically generated dump of language tree\n"
+                    "digraph Tree{\n\n"
+                    "\trankdir=UD;\n\n"
+                    "\tnode[color=\"red\",fontsize=14];\n\n");
+
+    lang_tree_graph_node (tree, gv_out);
+
+    fprintf (gv_out, "\n");
+
+    lang_tree_graph_arrow (tree, gv_out);
+
+    fprintf (gv_out, "\n");
+
+    fprintf (gv_out, "}");
+
+    fclose (gv_out);
+
+    system ("dot -Tpng lang_tree.gv -o lang_tree.png");
+    }
+
+
 

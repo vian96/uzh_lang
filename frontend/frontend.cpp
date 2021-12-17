@@ -739,8 +739,11 @@ LangTree *read_brack (Lexem **code, LangTree *parent)
     else if (is_id ("print"))
         tree = new_lt_op (LTO_PRINT, parent);
     // it is the way it should be, scan does not have any childs
-    else if (is_id ("scan"))
+    else if (is_id ("input"))
+        {
+        lex++;
         return new_lt_op (LTO_SCAN, parent);
+        }
     
     if (!tree)
         return read_var (code, parent);
