@@ -1,14 +1,21 @@
 mas[9] = 0
 
 def fib():
+    print (mas[0])
+    print (mas[1])
     i=2
     while i<10:
+        print (0-15)
+        print (mas[i-1])
+        print (mas[i-2])
         mas[i] = mas[i-1] + mas[i-2]
-        # print (mas[i])
+        print (mas[i])
         i = i+1
     return 0
 
 def printMas():
+    print (mas[0])
+    print (mas[1])
     i=0
     while i<10:
         print(mas[i])

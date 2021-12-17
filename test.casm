@@ -2,26 +2,42 @@
 ; register bx is used for pointing to begin of local vars
 ; register cx is used for temporary using of var address
 ; register dx is used for returning values from func
+push 10
+pop bx
+push 0
+; getting var mas
+    push 0
+    ; index
+push 9
+    add
+    pop cx
+    pop [cx]
 
-jmp :main
-
-
-:fact
-; starting if 0
-; getting var n
+jmp :end_of_func_fib
+:fib
+push 2
+; getting var i
+    push bx
+    push 0
+    add
+    pop cx
+    pop [cx]
+; starting while 0
+    :begin_of_while_0
+; getting var i
     push bx
     push 0
     add
     pop cx
     push [cx]
-push 1
-great
+push 10
+less
    push 0
-    je :false_branch_if_0
-; true branch of if
-
-; Calcing params
-; getting var n
+    je :end_of_while_0
+; getting var mas
+    push 0
+    ; index
+; getting var i
     push bx
     push 0
     add
@@ -29,82 +45,164 @@ great
     push [cx]
 push 1
 sub
-; calling function 
-    push bx
-    push 1
-    add    
-    pop bx
-  push bx
-  push 0
-  add
-  pop cx
-  pop [cx]
-call :fact
-push dx
-
-    push bx
-    push -1
-    add    
-    pop bx
-; getting var x
-    push bx
-    push 1
-    add
-    pop cx
-    pop [cx]
-; getting var x
-    push bx
-    push 1
     add
     pop cx
     push [cx]
-; getting var n
+; getting var mas
+    push 0
+    ; index
+; getting var i
     push bx
     push 0
     add
     pop cx
     push [cx]
-mul
-    pop dx
-    ret
-    jmp :end_of_if_0
-    :false_branch_if_0
+push 2
+sub
+    add
+    pop cx
+    push [cx]
+add
+; getting var mas
+    push 0
+    ; index
+; getting var i
+    push bx
+    push 0
+    add
+    pop cx
+    push [cx]
+    add
+    pop cx
+    pop [cx]
+; getting var i
+    push bx
+    push 0
+    add
+    pop cx
+    push [cx]
 push 1
+add
+; getting var i
+    push bx
+    push 0
+    add
+    pop cx
+    pop [cx]
+    jmp :begin_of_while_0
+    :end_of_while_0
+push 0
     pop dx
     ret
-    :end_of_if_0
 
+:end_of_func_fib
+
+
+jmp :end_of_func_printMas
+:printMas
+push 0
+; getting var i
+    push bx
+    push 0
+    add
+    pop cx
+    pop [cx]
+; starting while 1
+    :begin_of_while_1
+; getting var i
+    push bx
+    push 0
+    add
+    pop cx
+    push [cx]
+push 10
+less
+   push 0
+    je :end_of_while_1
+; getting var mas
+    push 0
+    ; index
+; getting var i
+    push bx
+    push 0
+    add
+    pop cx
+    push [cx]
+    add
+    pop cx
+    push [cx]
+out
+; getting var i
+    push bx
+    push 0
+    add
+    pop cx
+    push [cx]
+push 1
+add
+; getting var i
+    push bx
+    push 0
+    add
+    pop cx
+    pop [cx]
+    jmp :begin_of_while_1
+    :end_of_while_1
+push 0
+    pop dx
+    ret
+
+:end_of_func_printMas
+
+
+jmp :end_of_func_main
 :main
 in
-; getting var n
-    push bx
+; getting var mas
     push 0
+    ; index
+push 0
     add
     pop cx
     pop [cx]
-
-; Calcing params
-; getting var n
-    push bx
+in
+; getting var mas
     push 0
+    ; index
+push 1
     add
     pop cx
-    push [cx]
+    pop [cx]
 ; calling function 
     push bx
-    push 1
+    push 0
     add    
     pop bx
-  push bx
-  push 0
-  add
-  pop cx
-  pop [cx]
-call :fact
+call :fib
 push dx
 
     push bx
-    push -1
+    push 0
     add    
     pop bx
-out
+; calling function 
+    push bx
+    push 0
+    add    
+    pop bx
+call :printMas
+push dx
+
+    push bx
+    push 0
+    add    
+    pop bx
+
+jmp :end_of_all_program
+
+:end_of_func_main
+
+
+
+jmp :main
+:end_of_all_program

@@ -3,6 +3,7 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define is_type(node_, type_) ( (node_)->type == (type_) )
 #define is_util(node_, util_) ( ((node_)->type == LT_UTIL) && ((node_)->util == (util_)) )
@@ -19,14 +20,17 @@ void compile_lang (LangTree *tree, FILE *f_out)
              "Uzh lang compiler\n"
              "; register bx is used for pointing to begin of local vars\n"
              "; register cx is used for temporary using of var address\n"
-             "; register dx is used for returning values from func\n"
-             "\njmp :main\n\n");
+             "; register dx is used for returning values from func\n");
     
     init_name_tables ();
     compile_main_branch (tree, f_out);
     DEB ("Ended compiling main branch\n");
+
+    int glob_offset = get_global_offset ();
+    fprintf (f_out, "push %d\npop bx\n", glob_offset);
     
     compile_tree (tree, f_out);
+    fprintf (f_out, "\n\njmp :main\n:end_of_all_program\n");
     DEB ("Ended compiling all program\n");
     }
 
@@ -77,7 +81,7 @@ void compile_tree (LangTree *tree, FILE *f_out, int *depth)
     if (is_util (tree, LTU_FUNC))
         {
         DEB ("Compiling func\n");
-        fprintf (f_out, "\n:%s\n", tree->left->str);
+        fprintf (f_out, "\njmp :end_of_func_%s\n:%s\n", tree->left->str, tree->left->str);
         clear_local_names ();
         if (tree->right) 
             compile_tree (tree->right, f_out);
@@ -90,6 +94,9 @@ void compile_tree (LangTree *tree, FILE *f_out, int *depth)
         DEB ("Compiling def\n");
         compile_tree (tree->left, f_out);
         compile_tree (tree->right, f_out);
+        if (!strcmp (tree->left->left->str, "main"))
+            fprintf (f_out, "\njmp :end_of_all_program\n");
+        fprintf (f_out, "\n:end_of_func_%s\n\n", tree->left->left->str);
         return;
         }
 
