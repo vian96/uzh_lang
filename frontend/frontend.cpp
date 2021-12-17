@@ -122,7 +122,7 @@ LangTree *read_statement (Lexem **code, LangTree *parent)
     print_lexems (*code);
 
     Lexem *start = *code;
-    LangTree *tree = new_lt_util (LTU_STM);
+    LangTree *tree = new_lt_util (LTU_STM, parent);
 
     do {
         tree->right = read_return (code, tree);
@@ -171,6 +171,7 @@ LangTree *read_block (Lexem **code, int n, LangTree *parent)
                 goto fail_read_block_free;
                 }
             DEB ("Success block\n");
+            tree->parent = parent;
             return tree;
             }
         lex++;
@@ -240,7 +241,11 @@ LangTree *read_var (Lexem **code, LangTree *parent)
     assert (*code);
 
     if (lex->type == LEX_NUM)
-        return  new_lt_num (lex->number, parent);
+        {
+        LangTree *tree = new_lt_num (lex->number, parent);
+        lex++;
+        return tree;
+        }
 
     if (lex->type != LEX_ID)
         return nullptr;
@@ -250,6 +255,24 @@ LangTree *read_var (Lexem **code, LangTree *parent)
 
     LangTree *tree = new_lt_id (lex->str, parent);
     lex++;
+    if (is_sym ("["))
+        {
+        lex++;
+        tree->right = read_expr (code, tree);
+        if (!tree->right)
+            {
+            printf ("Failed to read expression in []\n");
+            free_tree_lang (tree);
+            return nullptr;
+            }
+        if (!is_sym ("]"))
+            {
+            printf ("No ] after expression\n");
+            free_tree_lang (tree);
+            return nullptr;
+            }
+        lex++;
+        }
     return tree;
     }
 

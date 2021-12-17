@@ -131,6 +131,8 @@ Lexem read_lexem (const char **str)
     case '^':
     case ':':
     case ',':
+    case '[':
+    case ']':
         COPY_STR (1);
         break;
 

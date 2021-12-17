@@ -1,5 +1,6 @@
 def Func(a):
-    b = c
+    b[2] = c
+    f = 28
 
 def main():
     d = e
