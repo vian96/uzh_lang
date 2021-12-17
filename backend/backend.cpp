@@ -260,7 +260,7 @@ void compile_tree (LangTree *tree, FILE *f_out, int *depth)
         int offset = get_local_offset ();
         fprintf (f_out, "; calling function \n"
                         "    push bx\n    push %d\n"
-                        "    add    \n    pop [bx]\n", offset);
+                        "    add    \n    pop bx\n", offset);
         
         int cnt = 0;
         if (param)
@@ -275,7 +275,7 @@ void compile_tree (LangTree *tree, FILE *f_out, int *depth)
         int depth = 0;
         fprintf (f_out, "call :%s\npush dx\n\n", tree->left->str);
         fprintf (f_out, "    push bx\n    push %d\n"
-                        "    add    \n    pop [bx]\n", -offset);
+                        "    add    \n    pop bx\n", -offset);
         return;
         }
 

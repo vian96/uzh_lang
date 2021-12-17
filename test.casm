@@ -6,165 +6,105 @@
 jmp :main
 
 
-:main
-push 0
-; getting var x
-    push bx
-    push 2
-    add
-    ; index
-push 50
-    add
-    pop cx
-    pop [cx]
-in
+:fact
+; starting if 0
 ; getting var n
     push bx
-    push 1
-    add
-    pop cx
-    pop [cx]
-push 1
-; getting var i
-    push bx
-    push 53
-    add
-    pop cx
-    pop [cx]
-push 1
-; getting var x
-    push bx
-    push 2
-    add
-    ; index
-push 0
-    add
-    pop cx
-    pop [cx]
-; starting while 0
-    :begin_of_while_0
-; getting var i
-    push bx
-    push 53
+    push 0
     add
     pop cx
     push [cx]
-; getting var n
-    push bx
-    push 1
-    add
-    pop cx
-    push [cx]
-leq
+push 1
+great
    push 0
-    je :end_of_while_0
-; getting var x
+    je :false_branch_if_0
+; true branch of if
+
+; Calcing params
+; getting var n
     push bx
-    push 2
-    add
-    ; index
-; getting var i
-    push bx
-    push 53
+    push 0
     add
     pop cx
     push [cx]
 push 1
 sub
-    add
-    pop cx
-    push [cx]
-; getting var i
+; calling function 
     push bx
-    push 53
-    add
-    pop cx
-    push [cx]
-mul
+    push 1
+    add    
+    pop bx
+  push bx
+  push 0
+  add
+  pop cx
+  pop [cx]
+call :fact
+push dx
+
+    push bx
+    push -1
+    add    
+    pop bx
 ; getting var x
     push bx
-    push 2
-    add
-    ; index
-; getting var i
-    push bx
-    push 53
-    add
-    pop cx
-    push [cx]
+    push 1
     add
     pop cx
     pop [cx]
-; getting var i
-    push bx
-    push 53
-    add
-    pop cx
-    push [cx]
-push 1
-add
-; getting var i
-    push bx
-    push 53
-    add
-    pop cx
-    pop [cx]
-    jmp :begin_of_while_0
-    :end_of_while_0
-push 1
-; getting var i
-    push bx
-    push 53
-    add
-    pop cx
-    pop [cx]
-; starting while 1
-    :begin_of_while_1
-; getting var i
-    push bx
-    push 53
-    add
-    pop cx
-    push [cx]
-; getting var n
+; getting var x
     push bx
     push 1
     add
     pop cx
     push [cx]
-leq
-   push 0
-    je :end_of_while_1
-; getting var x
+; getting var n
     push bx
-    push 2
-    add
-    ; index
-; getting var i
-    push bx
-    push 53
+    push 0
     add
     pop cx
     push [cx]
-    add
-    pop cx
-    push [cx]
-out
-; getting var i
-    push bx
-    push 53
-    add
-    pop cx
-    push [cx]
+mul
+    pop dx
+    ret
+    jmp :end_of_if_0
+    :false_branch_if_0
 push 1
-add
-; getting var i
+    pop dx
+    ret
+    :end_of_if_0
+
+:main
+in
+; getting var n
     push bx
-    push 53
+    push 0
     add
     pop cx
     pop [cx]
-    jmp :begin_of_while_1
-    :end_of_while_1
-push 66
+
+; Calcing params
+; getting var n
+    push bx
+    push 0
+    add
+    pop cx
+    push [cx]
+; calling function 
+    push bx
+    push 1
+    add    
+    pop bx
+  push bx
+  push 0
+  add
+  pop cx
+  pop [cx]
+call :fact
+push dx
+
+    push bx
+    push -1
+    add    
+    pop bx
 out

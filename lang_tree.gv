@@ -5,153 +5,107 @@ digraph Tree{
 
 	node[color="red",fontsize=14];
 
-	733418608[shape=record, label="Statement"];
-	733418544[shape=record, label="null"];
-	733418672[shape=record, label="Definition"];
-	733445856[shape=record, label="Funcction"];
-	733445920[shape=record, label="main"];
-	733419952[shape=record, label="Param"];
-	733419824[shape=record, label="Param"];
-	733445984[shape=record, label="null"];
-	733419888[shape=record, label="k"];
-	733420016[shape=record, label="n"];
-	732135424[shape=record, label="Statement"];
-	732134080[shape=record, label="Statement"];
-	732137536[shape=record, label="Statement"];
-	733439856[shape=record, label="Statement"];
-	733440496[shape=record, label="Statement"];
-	733441264[shape=record, label="Statement"];
-	733440048[shape=record, label="Statement"];
-	733420144[shape=record, label="Statement"];
-	733420080[shape=record, label="null"];
-	733420208[shape=record, label="="];
-	733420272[shape=record, label="x"];
-	733420336[shape=record, label="50"];
-	733420400[shape=record, label="0"];
-	733440112[shape=record, label="="];
-	733440816[shape=record, label="n"];
-	733440240[shape=record, label="i"];
-	733439536[shape=record, label="="];
-	733440304[shape=record, label="i"];
-	733441328[shape=record, label="1"];
-	733440880[shape=record, label="="];
-	733441136[shape=record, label="x"];
-	733441008[shape=record, label="0"];
-	733440944[shape=record, label="1"];
-	733439920[shape=record, label="While"];
-	733440368[shape=record, label="m"];
-	733439984[shape=record, label="i"];
-	733439600[shape=record, label="n"];
-	733439728[shape=record, label="Statement"];
-	733440176[shape=record, label="Statement"];
-	733440560[shape=record, label="null"];
-	733440432[shape=record, label="="];
-	733440624[shape=record, label="x"];
-	733439664[shape=record, label="i"];
-	733441200[shape=record, label="*"];
-	733440688[shape=record, label="x"];
-	733441072[shape=record, label="-"];
-	733440752[shape=record, label="i"];
-	733439792[shape=record, label="1"];
-	733441392[shape=record, label="i"];
-	732134208[shape=record, label="="];
-	732134528[shape=record, label="i"];
-	732136192[shape=record, label="+"];
-	732136960[shape=record, label="i"];
-	732135360[shape=record, label="1"];
-	732136064[shape=record, label="="];
-	732135104[shape=record, label="i"];
-	732135488[shape=record, label="1"];
-	732136512[shape=record, label="While"];
-	732134336[shape=record, label="m"];
-	732136704[shape=record, label="i"];
-	732137600[shape=record, label="n"];
-	732137728[shape=record, label="Statement"];
-	732136128[shape=record, label="Statement"];
-	732135168[shape=record, label="null"];
-	732134400[shape=record, label="p"];
-	732136000[shape=record, label="x"];
-	732135232[shape=record, label="i"];
-	732136640[shape=record, label="="];
-	732137216[shape=record, label="i"];
-	732135936[shape=record, label="+"];
-	732137664[shape=record, label="i"];
-	732135296[shape=record, label="1"];
-	732135680[shape=record, label="p"];
-	732135808[shape=record, label="66"];
+	695147520[shape=record, label="Statement"];
+	695172880[shape=record, label="Statement"];
+	695172816[shape=record, label="null"];
+	695172944[shape=record, label="Definition"];
+	695173008[shape=record, label="Funcction"];
+	695145520[shape=record, label="fact"];
+	695145648[shape=record, label="Param"];
+	695145584[shape=record, label="null"];
+	695145712[shape=record, label="n"];
+	695145840[shape=record, label="Statement"];
+	695145776[shape=record, label="null"];
+	695145904[shape=record, label="If"];
+	695146032[shape=record, label="greater"];
+	695145968[shape=record, label="n"];
+	695146096[shape=record, label="1"];
+	695146160[shape=record, label="Decision"];
+	695148160[shape=record, label="Statement"];
+	695148096[shape=record, label="Statement"];
+	695146224[shape=record, label="null"];
+	695146944[shape=record, label="="];
+	695147392[shape=record, label="x"];
+	695147456[shape=record, label="Call"];
+	695146880[shape=record, label="fact"];
+	695147776[shape=record, label="Param"];
+	695147136[shape=record, label="null"];
+	695147008[shape=record, label="-"];
+	695147904[shape=record, label="n"];
+	695147840[shape=record, label="1"];
+	695148224[shape=record, label="Return"];
+	695147584[shape=record, label="*"];
+	695147072[shape=record, label="x"];
+	695147968[shape=record, label="n"];
+	695148032[shape=record, label="Statement"];
+	695148288[shape=record, label="null"];
+	695146432[shape=record, label="Return"];
+	695147328[shape=record, label="1"];
+	695146496[shape=record, label="Definition"];
+	695146560[shape=record, label="Funcction"];
+	695146752[shape=record, label="main"];
+	695147648[shape=record, label="Statement"];
+	695146816[shape=record, label="Statement"];
+	695147200[shape=record, label="null"];
+	695147264[shape=record, label="="];
+	695146624[shape=record, label="n"];
+	695146688[shape=record, label="i"];
+	695147712[shape=record, label="p"];
+	695236960[shape=record, label="Call"];
+	695238624[shape=record, label="fact"];
+	695235168[shape=record, label="Param"];
+	695237152[shape=record, label="null"];
+	695237792[shape=record, label="n"];
 
-	733418608 -> 733418544[fontsize=12]
-	733418608 -> 733418672[fontsize=12]
-	733418672 -> 733445856[fontsize=12]
-	733418672 -> 732135424[fontsize=12]
-	733445856 -> 733445920[fontsize=12]
-	733445856 -> 733419952[fontsize=12]
-	733419952 -> 733419824[fontsize=12]
-	733419952 -> 733420016[fontsize=12]
-	733419824 -> 733445984[fontsize=12]
-	733419824 -> 733419888[fontsize=12]
-	732135424 -> 732134080[fontsize=12]
-	732135424 -> 732135680[fontsize=12]
-	732134080 -> 732137536[fontsize=12]
-	732134080 -> 732136512[fontsize=12]
-	732137536 -> 733439856[fontsize=12]
-	732137536 -> 732136064[fontsize=12]
-	733439856 -> 733440496[fontsize=12]
-	733439856 -> 733439920[fontsize=12]
-	733440496 -> 733441264[fontsize=12]
-	733440496 -> 733440880[fontsize=12]
-	733441264 -> 733440048[fontsize=12]
-	733441264 -> 733439536[fontsize=12]
-	733440048 -> 733420144[fontsize=12]
-	733440048 -> 733440112[fontsize=12]
-	733420144 -> 733420080[fontsize=12]
-	733420144 -> 733420208[fontsize=12]
-	733420208 -> 733420272[fontsize=12]
-	733420208 -> 733420400[fontsize=12]
-	733420272 -> 733420336[fontsize=12]
-	733440112 -> 733440816[fontsize=12]
-	733440112 -> 733440240[fontsize=12]
-	733439536 -> 733440304[fontsize=12]
-	733439536 -> 733441328[fontsize=12]
-	733440880 -> 733441136[fontsize=12]
-	733440880 -> 733440944[fontsize=12]
-	733441136 -> 733441008[fontsize=12]
-	733439920 -> 733440368[fontsize=12]
-	733439920 -> 733439728[fontsize=12]
-	733440368 -> 733439984[fontsize=12]
-	733440368 -> 733439600[fontsize=12]
-	733439728 -> 733440176[fontsize=12]
-	733439728 -> 732134208[fontsize=12]
-	733440176 -> 733440560[fontsize=12]
-	733440176 -> 733440432[fontsize=12]
-	733440432 -> 733440624[fontsize=12]
-	733440432 -> 733441200[fontsize=12]
-	733440624 -> 733439664[fontsize=12]
-	733441200 -> 733440688[fontsize=12]
-	733441200 -> 733441392[fontsize=12]
-	733440688 -> 733441072[fontsize=12]
-	733441072 -> 733440752[fontsize=12]
-	733441072 -> 733439792[fontsize=12]
-	732134208 -> 732134528[fontsize=12]
-	732134208 -> 732136192[fontsize=12]
-	732136192 -> 732136960[fontsize=12]
-	732136192 -> 732135360[fontsize=12]
-	732136064 -> 732135104[fontsize=12]
-	732136064 -> 732135488[fontsize=12]
-	732136512 -> 732134336[fontsize=12]
-	732136512 -> 732137728[fontsize=12]
-	732134336 -> 732136704[fontsize=12]
-	732134336 -> 732137600[fontsize=12]
-	732137728 -> 732136128[fontsize=12]
-	732137728 -> 732136640[fontsize=12]
-	732136128 -> 732135168[fontsize=12]
-	732136128 -> 732134400[fontsize=12]
-	732134400 -> 732136000[fontsize=12]
-	732136000 -> 732135232[fontsize=12]
-	732136640 -> 732137216[fontsize=12]
-	732136640 -> 732135936[fontsize=12]
-	732135936 -> 732137664[fontsize=12]
-	732135936 -> 732135296[fontsize=12]
-	732135680 -> 732135808[fontsize=12]
+	695147520 -> 695172880[fontsize=12]
+	695147520 -> 695146496[fontsize=12]
+	695172880 -> 695172816[fontsize=12]
+	695172880 -> 695172944[fontsize=12]
+	695172944 -> 695173008[fontsize=12]
+	695172944 -> 695145840[fontsize=12]
+	695173008 -> 695145520[fontsize=12]
+	695173008 -> 695145648[fontsize=12]
+	695145648 -> 695145584[fontsize=12]
+	695145648 -> 695145712[fontsize=12]
+	695145840 -> 695145776[fontsize=12]
+	695145840 -> 695145904[fontsize=12]
+	695145904 -> 695146032[fontsize=12]
+	695145904 -> 695146160[fontsize=12]
+	695146032 -> 695145968[fontsize=12]
+	695146032 -> 695146096[fontsize=12]
+	695146160 -> 695148160[fontsize=12]
+	695146160 -> 695148032[fontsize=12]
+	695148160 -> 695148096[fontsize=12]
+	695148160 -> 695148224[fontsize=12]
+	695148096 -> 695146224[fontsize=12]
+	695148096 -> 695146944[fontsize=12]
+	695146944 -> 695147392[fontsize=12]
+	695146944 -> 695147456[fontsize=12]
+	695147456 -> 695146880[fontsize=12]
+	695147456 -> 695147776[fontsize=12]
+	695147776 -> 695147136[fontsize=12]
+	695147776 -> 695147008[fontsize=12]
+	695147008 -> 695147904[fontsize=12]
+	695147008 -> 695147840[fontsize=12]
+	695148224 -> 695147584[fontsize=12]
+	695147584 -> 695147072[fontsize=12]
+	695147584 -> 695147968[fontsize=12]
+	695148032 -> 695148288[fontsize=12]
+	695148032 -> 695146432[fontsize=12]
+	695146432 -> 695147328[fontsize=12]
+	695146496 -> 695146560[fontsize=12]
+	695146496 -> 695147648[fontsize=12]
+	695146560 -> 695146752[fontsize=12]
+	695147648 -> 695146816[fontsize=12]
+	695147648 -> 695147712[fontsize=12]
+	695146816 -> 695147200[fontsize=12]
+	695146816 -> 695147264[fontsize=12]
+	695147264 -> 695146624[fontsize=12]
+	695147264 -> 695146688[fontsize=12]
+	695147712 -> 695236960[fontsize=12]
+	695236960 -> 695238624[fontsize=12]
+	695236960 -> 695235168[fontsize=12]
+	695235168 -> 695237152[fontsize=12]
+	695235168 -> 695237792[fontsize=12]
 
 }
