@@ -28,7 +28,7 @@ void compile_lang (LangTree *tree, FILE *f_out)
     DEB ("Ended compiling all program\n");
     }
 
-void compile_tree (LangTree *tree, FILE *f_out)
+void compile_tree (LangTree *tree, FILE *f_out, int *depth)
     {
     DEB ("Tree type is %c, util is %c\n", tree->type, tree->util);
     if (is_type (tree, LT_NUM))
@@ -65,9 +65,9 @@ void compile_tree (LangTree *tree, FILE *f_out)
         fprintf (f_out, "    pop cx\n");
 
         if (is_util (tree->parent, LTU_ASSIGN))
-            fprintf (f_out, "pop [cx]\n");
+            fprintf (f_out, "    pop [cx]\n");
         else
-            fprintf (f_out, "push [cx]\n");
+            fprintf (f_out, "    push [cx]\n");
         
         return;
         }
@@ -102,6 +102,7 @@ void compile_tree (LangTree *tree, FILE *f_out)
     // TODO reduce copy-paste
     if (is_type (tree, LT_OPER))
         {
+        DEB ("Compilin oper %c\n", tree->oper);
         switch (tree->oper)
         {
         case LTO_PRINT:
@@ -193,6 +194,10 @@ void compile_tree (LangTree *tree, FILE *f_out)
             compile_tree (tree->right, f_out);
             fprintf (f_out, "log\n");
             return;
+        case LTO_SQRT:
+            compile_tree (tree->right, f_out);
+            fprintf (f_out, "sqrt\n");
+            return;
         
         default:
             break;
@@ -201,45 +206,102 @@ void compile_tree (LangTree *tree, FILE *f_out)
 
     if (is_util (tree, LTU_PARAM))
         {
+        if (!depth)
+            {
+            if (tree->left)
+                compile_tree (tree->left, f_out);
+            DEB ("Found param of func\n");
+            bool is_global = 0;
+            get_from_name_table (tree->right->str, 1, &is_global);
+            return;
+            }
         if (tree->left)
-            compile_tree (tree->left, f_out);
-        DEB ("Found param of func\n");
-        bool is_global = 0;
-        get_from_name_table (tree->right->str, 1, &is_global);
+            compile_tree (tree->left, f_out, depth);
+
+        DEB ("FOUND params from call\n");
+        compile_tree (tree->right, f_out);
+        fprintf (f_out, " push bx \n push %d \n add \n pop cx \n pop [cx] \n", *depth);
+        (*depth)++;
         return;
         }
 
     if (is_util (tree, LTU_WHILE))
         {
         static int while_ind = 0;
-
-        fprintf (f_out, "; starting while %d\n    :begin_of_while_%d\n", while_ind, while_ind);
-        compile_tree (tree->left, f_out);
-        fprintf (f_out, "   push 0\n    je :end_of_while_%d\n", while_ind);
-        compile_tree (tree->right, f_out);
-        fprintf (f_out, "    jmp :begin_of_while_%d\n    :end_of_while_%d\n", while_ind, while_ind);
-
+        int cur_while_ind = while_ind;
         while_ind++;
+
+        fprintf (f_out, "; starting while %d\n    :begin_of_while_%d\n", cur_while_ind, cur_while_ind);
+        compile_tree (tree->left, f_out);
+        fprintf (f_out, "   push 0\n    je :end_of_while_%d\n", cur_while_ind);
+        compile_tree (tree->right, f_out);
+        fprintf (f_out, "    jmp :begin_of_while_%d\n    :end_of_while_%d\n", cur_while_ind, cur_while_ind);
+        
+        return;
+        }
+
+    if (is_util (tree, LTU_CALL))
+        {
+        DEB ("FOUND CALL, starting params\n");
+
+        LangTree *param = tree->right;
+        while (param)
+            {
+            fprintf (f_out, "\n; Calcing params\n");
+            compile_tree (param->right, f_out);
+            if (param->left == nullptr || is_type (param->left, LT_EMPTY))
+                break;
+            param = param->left;
+            assert (param->parent->left == param);
+            }
+
+        int offset = get_local_offset ();
+        fprintf (f_out, "; calling function \n"
+                        "    push bx\n    push %d\n"
+                        "    add    \n    pop [bx]\n", offset);
+        
+        int cnt = 0;
+        if (param)
+            while (param != tree)
+                {
+                DEB ("Reading params\n");
+                fprintf (f_out, "  push bx\n  push %d\n  add\n  pop cx\n  pop [cx]\n", cnt);
+                cnt++;
+                param = param->parent;
+                }
+        
+        int depth = 0;
+        fprintf (f_out, "call :%s\npush dx\n\n", tree->left->str);
+        fprintf (f_out, "    push bx\n    push %d\n"
+                        "    add    \n    pop [bx]\n", -offset);
+        return;
+        }
+
+    if (is_util (tree, LTU_RET))
+        {
+        compile_tree (tree->right, f_out);
+        fprintf (f_out, "    pop dx\n    ret\n");
         return;
         }
 
     if (is_util (tree, LTU_IF))
         {
         static int if_ind = 0;
+        int cur_if_ind = if_ind;
+        if_ind++;
 
-        fprintf (f_out, "; starting if %d\n", if_ind, if_ind);
+        fprintf (f_out, "; starting if %d\n", cur_if_ind);
         compile_tree (tree->left, f_out);
-        fprintf (f_out, "   push 0\n    je :false_branch_if_%d\n", if_ind);
+        fprintf (f_out, "   push 0\n    je :false_branch_if_%d\n", cur_if_ind);
 
         LangTree *dec = tree->right;
         fprintf (f_out, "; true branch of if\n");
         compile_tree (dec->left, f_out);
-        fprintf (f_out, "    jmp :end_of_if_%d\n    :false_branch_if_%d\n", if_ind, if_ind);
+        fprintf (f_out, "    jmp :end_of_if_%d\n    :false_branch_if_%d\n", cur_if_ind, cur_if_ind);
         if (dec->right)
             compile_tree (dec->right, f_out);
-        fprintf(f_out, "    :end_of_if_%d", if_ind);
+        fprintf(f_out, "    :end_of_if_%d\n", cur_if_ind);
 
-        if_ind++;
         return;
         }
 
@@ -256,8 +318,6 @@ void compile_tree (LangTree *tree, FILE *f_out)
     if (tree->right)
         compile_tree (tree->right, f_out);
     }
-
-void compile_node_lang (LangTree *tree, FILE *f_out);
 
 void compile_main_branch (LangTree *tree, FILE *f_out)
     {

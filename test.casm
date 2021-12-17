@@ -5,122 +5,255 @@ jmp :main
 
 
 :main
-push 0
-; getting var x
-    push bx
-    push 2
-    add
-    ; index
-push 50
-    add
-    pop cx
-pop [cx]
 in
-; getting var n
+; getting var a
+    push bx
+    push 0
+    add
+    pop cx
+    pop [cx]
+in
+; getting var b
     push bx
     push 1
     add
     pop cx
-pop [cx]
-push 1
-; getting var i
-    push bx
-    push 53
-    add
-    pop cx
-pop [cx]
-push 1
-; getting var x
+    pop [cx]
+in
+; getting var c
     push bx
     push 2
     add
-    ; index
+    pop cx
+    pop [cx]
+; starting if 0
+; getting var a
+    push bx
+    push 0
+    add
+    pop cx
+    push [cx]
 push 0
-    add
-    pop cx
-pop [cx]
-; starting while 0
-    :begin_of_while_0
-; getting var i
-    push bx
-    push 53
-    add
-    pop cx
-push [cx]
-; getting var n
-    push bx
-    push 1
-    add
-    pop cx
-push [cx]
-leq
+neq
    push 0
-    je :end_of_while_0
-; getting var x
-    push bx
-    push 2
-    add
-    ; index
-; getting var i
-    push bx
-    push 53
-    add
-    pop cx
-push [cx]
-push 1
-sub
-    add
-    pop cx
-push [cx]
-; getting var i
-    push bx
-    push 53
-    add
-    pop cx
-push [cx]
-mul
-; getting var x
-    push bx
-    push 2
-    add
-    ; index
-; getting var i
-    push bx
-    push 53
-    add
-    pop cx
-push [cx]
-    add
-    pop cx
-pop [cx]
-; getting var i
-    push bx
-    push 53
-    add
-    pop cx
-push [cx]
-push 1
-add
-; getting var i
-    push bx
-    push 53
-    add
-    pop cx
-pop [cx]
-    jmp :begin_of_while_0
-    :end_of_while_0
-; getting var x
-    push bx
-    push 2
-    add
-    ; index
-; getting var n
+    je :false_branch_if_0
+; true branch of if
+; getting var b
     push bx
     push 1
     add
     pop cx
-push [cx]
+    push [cx]
+push 2
+pow
+push 4
+; getting var a
+    push bx
+    push 0
     add
     pop cx
-push [cx]
+    push [cx]
+mul
+; getting var c
+    push bx
+    push 2
+    add
+    pop cx
+    push [cx]
+mul
+sub
+; getting var d
+    push bx
+    push 3
+    add
+    pop cx
+    pop [cx]
+; starting if 1
+; getting var d
+    push bx
+    push 3
+    add
+    pop cx
+    push [cx]
+push 0
+eq
+   push 0
+    je :false_branch_if_1
+; true branch of if
+push 1
+out
+push 0
+; getting var b
+    push bx
+    push 1
+    add
+    pop cx
+    push [cx]
+push 2
+; getting var a
+    push bx
+    push 0
+    add
+    pop cx
+    push [cx]
+mul
+div
+sub
+out
+    jmp :end_of_if_1
+    :false_branch_if_1
+    :end_of_if_1
+; starting if 2
+; getting var d
+    push bx
+    push 3
+    add
+    pop cx
+    push [cx]
+push 0
+less
+   push 0
+    je :false_branch_if_2
+; true branch of if
+push 0
+out
+    jmp :end_of_if_2
+    :false_branch_if_2
+    :end_of_if_2
+; starting if 3
+; getting var d
+    push bx
+    push 3
+    add
+    pop cx
+    push [cx]
+push 0
+great
+   push 0
+    je :false_branch_if_3
+; true branch of if
+; getting var d
+    push bx
+    push 3
+    add
+    pop cx
+    push [cx]
+sqrt
+; getting var d
+    push bx
+    push 3
+    add
+    pop cx
+    pop [cx]
+push 2
+out
+push 0
+; getting var b
+    push bx
+    push 1
+    add
+    pop cx
+    push [cx]
+sub
+; getting var d
+    push bx
+    push 3
+    add
+    pop cx
+    push [cx]
+sub
+push 2
+; getting var a
+    push bx
+    push 0
+    add
+    pop cx
+    push [cx]
+mul
+div
+out
+push 0
+; getting var b
+    push bx
+    push 1
+    add
+    pop cx
+    push [cx]
+sub
+; getting var d
+    push bx
+    push 3
+    add
+    pop cx
+    push [cx]
+add
+push 2
+; getting var a
+    push bx
+    push 0
+    add
+    pop cx
+    push [cx]
+mul
+div
+out
+    jmp :end_of_if_3
+    :false_branch_if_3
+    :end_of_if_3
+    jmp :end_of_if_0
+    :false_branch_if_0
+; starting if 4
+; getting var b
+    push bx
+    push 1
+    add
+    pop cx
+    push [cx]
+push 0
+eq
+   push 0
+    je :false_branch_if_4
+; true branch of if
+; starting if 5
+; getting var c
+    push bx
+    push 2
+    add
+    pop cx
+    push [cx]
+push 0
+eq
+   push 0
+    je :false_branch_if_5
+; true branch of if
+push 9999
+out
+    jmp :end_of_if_5
+    :false_branch_if_5
+push 0
+out
+    :end_of_if_5
+    jmp :end_of_if_4
+    :false_branch_if_4
+push 1
+out
+push 0
+; getting var c
+    push bx
+    push 2
+    add
+    pop cx
+    push [cx]
+; getting var b
+    push bx
+    push 1
+    add
+    pop cx
+    push [cx]
+div
+sub
+out
+    :end_of_if_4
+    :end_of_if_0
+push 66
 out

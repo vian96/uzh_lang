@@ -1,4 +1,4 @@
-#include "../backend.h"
+#include <stdio.h>
 
 struct VarName {
     char *name;
@@ -20,3 +20,8 @@ void init_name_tables ();
 void free_name_tables ();
 
 void clear_local_names ();
+
+int get_local_offset ();
+
+int get_global_offset ();
+

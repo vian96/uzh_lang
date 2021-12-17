@@ -28,6 +28,7 @@ enum LangTreeOper {
     LTO_OR = '|', LTO_AND = '&', LTO_NOT = '!',
     // math functions
     LTO_SIN = 's', LTO_COS = 'c', LTO_LN = 'l',
+    LTO_SQRT = 'q',
     // UI
     LTO_PRINT = 'p', LTO_SCAN = 'i',
 };

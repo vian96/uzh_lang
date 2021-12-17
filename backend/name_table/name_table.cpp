@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include <stdio.h>
 
 #define DEB(...) printf (__VA_ARGS__)
 
@@ -15,6 +16,8 @@ static NameTable local_names = {};
 static int find_in_table (const char *name, NameTable *table);
 
 static int add_to_table (const char *name, int size, NameTable *table);
+
+static int get_table_offset (const NameTable *table);
 
 void init_name_tables ()
     {
@@ -101,3 +104,23 @@ int add_to_global_names (const char *name, int size)
     return add_to_table (name, size, &global_names);
     }
 
+
+int get_local_offset ()
+    {
+    return get_table_offset (&local_names);
+    }
+
+int get_global_offset ()
+    {
+    return get_table_offset (&global_names);
+    }
+
+static int get_table_offset (const NameTable *table)
+    {
+    assert (table);
+
+    if (!table->cnt)
+        return 0;
+    
+    return table->vars[table->cnt - 1].offset + table->vars[table->cnt - 1].size;
+    }

@@ -729,13 +729,15 @@ LangTree *read_brack (Lexem **code, LangTree *parent)
     assert (code);
     assert (*code);
 
-    LangTree *tree = nullptr ; // new_lt_op (LTO_NOT, parent);
+    LangTree *tree = nullptr; // new_lt_op (LTO_NOT, parent);
     if (is_id ("sin"))
         tree = new_lt_op (LTO_SIN, parent);
     else if (is_id ("cos"))
         tree = new_lt_op (LTO_COS, parent);
     else if (is_id ("ln"))
         tree = new_lt_op (LTO_LN, parent);
+    else if (is_id ("sqrt"))
+        tree = new_lt_op (LTO_SQRT, parent);
     else if (is_id ("print"))
         tree = new_lt_op (LTO_PRINT, parent);
     // it is the way it should be, scan does not have any childs
@@ -749,7 +751,7 @@ LangTree *read_brack (Lexem **code, LangTree *parent)
         return read_var (code, parent);
         
     lex++;
-    tree->right = read_var (code, parent);
+    tree->right = read_var (code, tree);
     if (!tree->right)
         {
         free_tree_lang (tree);

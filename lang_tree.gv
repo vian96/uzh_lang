@@ -5,115 +5,283 @@ digraph Tree{
 
 	node[color="red",fontsize=14];
 
-	880809072[shape=record, label="Statement"];
-	880809008[shape=record, label="null"];
-	880811248[shape=record, label="Definition"];
-	880811312[shape=record, label="Funcction"];
-	880811376[shape=record, label="main"];
-	880811632[shape=record, label="Param"];
-	880811504[shape=record, label="Param"];
-	880811440[shape=record, label="null"];
-	880811568[shape=record, label="k"];
-	880811696[shape=record, label="n"];
-	880860224[shape=record, label="Statement"];
-	880833088[shape=record, label="Statement"];
-	880831616[shape=record, label="Statement"];
-	880832704[shape=record, label="Statement"];
-	880832256[shape=record, label="Statement"];
-	880811824[shape=record, label="Statement"];
-	880811760[shape=record, label="null"];
-	880811888[shape=record, label="="];
-	880811952[shape=record, label="x"];
-	880830960[shape=record, label="50"];
-	880831024[shape=record, label="0"];
-	880832512[shape=record, label="="];
-	880831232[shape=record, label="n"];
-	880831936[shape=record, label="i"];
-	880831744[shape=record, label="="];
-	880831872[shape=record, label="i"];
-	880832064[shape=record, label="1"];
-	880831488[shape=record, label="="];
-	880832000[shape=record, label="x"];
-	880833024[shape=record, label="0"];
-	880832768[shape=record, label="1"];
-	880832896[shape=record, label="While"];
-	880831424[shape=record, label="m"];
-	880832832[shape=record, label="i"];
-	880831552[shape=record, label="n"];
-	880832320[shape=record, label="Statement"];
-	880832576[shape=record, label="Statement"];
-	880832448[shape=record, label="null"];
-	880831360[shape=record, label="="];
-	880832128[shape=record, label="x"];
-	880832960[shape=record, label="i"];
-	880832384[shape=record, label="*"];
-	880831296[shape=record, label="x"];
-	880832192[shape=record, label="-"];
-	880831680[shape=record, label="i"];
-	880832640[shape=record, label="1"];
-	880831808[shape=record, label="i"];
-	880861760[shape=record, label="="];
-	880861824[shape=record, label="i"];
-	880859840[shape=record, label="+"];
-	880859776[shape=record, label="i"];
-	880860544[shape=record, label="1"];
-	880860928[shape=record, label="p"];
-	880861504[shape=record, label="x"];
-	880858688[shape=record, label="n"];
+	1590172816[shape=record, label="Statement"];
+	1590172752[shape=record, label="null"];
+	1590172880[shape=record, label="Definition"];
+	1590172944[shape=record, label="Funcction"];
+	1590173008[shape=record, label="main"];
+	1590196288[shape=record, label="Statement"];
+	1592203584[shape=record, label="Statement"];
+	1590170672[shape=record, label="Statement"];
+	1590173392[shape=record, label="Statement"];
+	1590173136[shape=record, label="Statement"];
+	1590173072[shape=record, label="null"];
+	1590173200[shape=record, label="="];
+	1590173264[shape=record, label="a"];
+	1590173328[shape=record, label="i"];
+	1590173456[shape=record, label="="];
+	1590173520[shape=record, label="b"];
+	1590173584[shape=record, label="i"];
+	1590170736[shape=record, label="="];
+	1590170800[shape=record, label="c"];
+	1592203456[shape=record, label="i"];
+	1592202560[shape=record, label="If"];
+	1592202688[shape=record, label="n"];
+	1592203072[shape=record, label="a"];
+	1592203904[shape=record, label="0"];
+	1592202624[shape=record, label="Decision"];
+	1590194096[shape=record, label="Statement"];
+	1590192432[shape=record, label="Statement"];
+	1592203840[shape=record, label="Statement"];
+	1592203776[shape=record, label="Statement"];
+	1592203968[shape=record, label="null"];
+	1592203648[shape=record, label="="];
+	1592203200[shape=record, label="d"];
+	1592202816[shape=record, label="-"];
+	1592203264[shape=record, label="^"];
+	1592202240[shape=record, label="b"];
+	1592202752[shape=record, label="2"];
+	1592203712[shape=record, label="*"];
+	1592203328[shape=record, label="*"];
+	1592203520[shape=record, label="4"];
+	1592203392[shape=record, label="a"];
+	1592202112[shape=record, label="c"];
+	1592202880[shape=record, label="If"];
+	1592202304[shape=record, label="e"];
+	1592203008[shape=record, label="d"];
+	1592202176[shape=record, label="0"];
+	1592203136[shape=record, label="Decision"];
+	1590195440[shape=record, label="Statement"];
+	1592202432[shape=record, label="Statement"];
+	1592202368[shape=record, label="null"];
+	1592202496[shape=record, label="p"];
+	1592202944[shape=record, label="1"];
+	1590193648[shape=record, label="p"];
+	1590192944[shape=record, label="-"];
+	1590194288[shape=record, label="0"];
+	1590192176[shape=record, label="/"];
+	1590192048[shape=record, label="b"];
+	1590194864[shape=record, label="*"];
+	1590194352[shape=record, label="2"];
+	1590191984[shape=record, label="a"];
+	1590192496[shape=record, label="If"];
+	1590194480[shape=record, label="less"];
+	1590193392[shape=record, label="d"];
+	1590192240[shape=record, label="0"];
+	1590193584[shape=record, label="Decision"];
+	1590192560[shape=record, label="Statement"];
+	1590194032[shape=record, label="null"];
+	1590194544[shape=record, label="p"];
+	1590194608[shape=record, label="0"];
+	1590191664[shape=record, label="If"];
+	1590193456[shape=record, label="greater"];
+	1590193328[shape=record, label="d"];
+	1590194160[shape=record, label="0"];
+	1590191792[shape=record, label="Decision"];
+	1590192816[shape=record, label="Statement"];
+	1590193712[shape=record, label="Statement"];
+	1590194736[shape=record, label="Statement"];
+	1590192624[shape=record, label="Statement"];
+	1590192688[shape=record, label="null"];
+	1590194992[shape=record, label="="];
+	1590194672[shape=record, label="d"];
+	1590195568[shape=record, label="q"];
+	1590193904[shape=record, label="d"];
+	1590192752[shape=record, label="p"];
+	1590195312[shape=record, label="2"];
+	1590193136[shape=record, label="p"];
+	1590195248[shape=record, label="/"];
+	1590192304[shape=record, label="-"];
+	1590191856[shape=record, label="-"];
+	1590195120[shape=record, label="0"];
+	1590193776[shape=record, label="b"];
+	1590192368[shape=record, label="d"];
+	1590193840[shape=record, label="*"];
+	1590194224[shape=record, label="2"];
+	1590193200[shape=record, label="a"];
+	1590192880[shape=record, label="p"];
+	1590194800[shape=record, label="/"];
+	1590193264[shape=record, label="+"];
+	1590193968[shape=record, label="-"];
+	1590193008[shape=record, label="0"];
+	1590193520[shape=record, label="b"];
+	1590194416[shape=record, label="d"];
+	1590193072[shape=record, label="*"];
+	1590194928[shape=record, label="2"];
+	1590195504[shape=record, label="a"];
+	1590191728[shape=record, label="Statement"];
+	1590195056[shape=record, label="null"];
+	1590195184[shape=record, label="If"];
+	1590191920[shape=record, label="e"];
+	1590195376[shape=record, label="b"];
+	1590192112[shape=record, label="0"];
+	1590199680[shape=record, label="Decision"];
+	1590199040[shape=record, label="Statement"];
+	1590199616[shape=record, label="null"];
+	1590197248[shape=record, label="If"];
+	1590197184[shape=record, label="e"];
+	1590198528[shape=record, label="c"];
+	1590197312[shape=record, label="0"];
+	1590198272[shape=record, label="Decision"];
+	1590198656[shape=record, label="Statement"];
+	1590198592[shape=record, label="null"];
+	1590196992[shape=record, label="p"];
+	1590199552[shape=record, label="9999"];
+	1590195968[shape=record, label="Statement"];
+	1590196800[shape=record, label="null"];
+	1590198080[shape=record, label="p"];
+	1590198336[shape=record, label="0"];
+	1590195840[shape=record, label="Statement"];
+	1590198144[shape=record, label="Statement"];
+	1590196096[shape=record, label="null"];
+	1590195776[shape=record, label="p"];
+	1590198400[shape=record, label="1"];
+	1590196160[shape=record, label="p"];
+	1590197120[shape=record, label="-"];
+	1590196224[shape=record, label="0"];
+	1590198464[shape=record, label="/"];
+	1590199488[shape=record, label="c"];
+	1590196864[shape=record, label="b"];
+	1590196352[shape=record, label="p"];
+	1590197376[shape=record, label="66"];
 
-	880809072 -> 880809008[fontsize=12]
-	880809072 -> 880811248[fontsize=12]
-	880811248 -> 880811312[fontsize=12]
-	880811248 -> 880860224[fontsize=12]
-	880811312 -> 880811376[fontsize=12]
-	880811312 -> 880811632[fontsize=12]
-	880811632 -> 880811504[fontsize=12]
-	880811632 -> 880811696[fontsize=12]
-	880811504 -> 880811440[fontsize=12]
-	880811504 -> 880811568[fontsize=12]
-	880860224 -> 880833088[fontsize=12]
-	880860224 -> 880860928[fontsize=12]
-	880833088 -> 880831616[fontsize=12]
-	880833088 -> 880832896[fontsize=12]
-	880831616 -> 880832704[fontsize=12]
-	880831616 -> 880831488[fontsize=12]
-	880832704 -> 880832256[fontsize=12]
-	880832704 -> 880831744[fontsize=12]
-	880832256 -> 880811824[fontsize=12]
-	880832256 -> 880832512[fontsize=12]
-	880811824 -> 880811760[fontsize=12]
-	880811824 -> 880811888[fontsize=12]
-	880811888 -> 880811952[fontsize=12]
-	880811888 -> 880831024[fontsize=12]
-	880811952 -> 880830960[fontsize=12]
-	880832512 -> 880831232[fontsize=12]
-	880832512 -> 880831936[fontsize=12]
-	880831744 -> 880831872[fontsize=12]
-	880831744 -> 880832064[fontsize=12]
-	880831488 -> 880832000[fontsize=12]
-	880831488 -> 880832768[fontsize=12]
-	880832000 -> 880833024[fontsize=12]
-	880832896 -> 880831424[fontsize=12]
-	880832896 -> 880832320[fontsize=12]
-	880831424 -> 880832832[fontsize=12]
-	880831424 -> 880831552[fontsize=12]
-	880832320 -> 880832576[fontsize=12]
-	880832320 -> 880861760[fontsize=12]
-	880832576 -> 880832448[fontsize=12]
-	880832576 -> 880831360[fontsize=12]
-	880831360 -> 880832128[fontsize=12]
-	880831360 -> 880832384[fontsize=12]
-	880832128 -> 880832960[fontsize=12]
-	880832384 -> 880831296[fontsize=12]
-	880832384 -> 880831808[fontsize=12]
-	880831296 -> 880832192[fontsize=12]
-	880832192 -> 880831680[fontsize=12]
-	880832192 -> 880832640[fontsize=12]
-	880861760 -> 880861824[fontsize=12]
-	880861760 -> 880859840[fontsize=12]
-	880859840 -> 880859776[fontsize=12]
-	880859840 -> 880860544[fontsize=12]
-	880860928 -> 880861504[fontsize=12]
-	880861504 -> 880858688[fontsize=12]
+	1590172816 -> 1590172752[fontsize=12]
+	1590172816 -> 1590172880[fontsize=12]
+	1590172880 -> 1590172944[fontsize=12]
+	1590172880 -> 1590196288[fontsize=12]
+	1590172944 -> 1590173008[fontsize=12]
+	1590196288 -> 1592203584[fontsize=12]
+	1590196288 -> 1590196352[fontsize=12]
+	1592203584 -> 1590170672[fontsize=12]
+	1592203584 -> 1592202560[fontsize=12]
+	1590170672 -> 1590173392[fontsize=12]
+	1590170672 -> 1590170736[fontsize=12]
+	1590173392 -> 1590173136[fontsize=12]
+	1590173392 -> 1590173456[fontsize=12]
+	1590173136 -> 1590173072[fontsize=12]
+	1590173136 -> 1590173200[fontsize=12]
+	1590173200 -> 1590173264[fontsize=12]
+	1590173200 -> 1590173328[fontsize=12]
+	1590173456 -> 1590173520[fontsize=12]
+	1590173456 -> 1590173584[fontsize=12]
+	1590170736 -> 1590170800[fontsize=12]
+	1590170736 -> 1592203456[fontsize=12]
+	1592202560 -> 1592202688[fontsize=12]
+	1592202560 -> 1592202624[fontsize=12]
+	1592202688 -> 1592203072[fontsize=12]
+	1592202688 -> 1592203904[fontsize=12]
+	1592202624 -> 1590194096[fontsize=12]
+	1592202624 -> 1590191728[fontsize=12]
+	1590194096 -> 1590192432[fontsize=12]
+	1590194096 -> 1590191664[fontsize=12]
+	1590192432 -> 1592203840[fontsize=12]
+	1590192432 -> 1590192496[fontsize=12]
+	1592203840 -> 1592203776[fontsize=12]
+	1592203840 -> 1592202880[fontsize=12]
+	1592203776 -> 1592203968[fontsize=12]
+	1592203776 -> 1592203648[fontsize=12]
+	1592203648 -> 1592203200[fontsize=12]
+	1592203648 -> 1592202816[fontsize=12]
+	1592202816 -> 1592203264[fontsize=12]
+	1592202816 -> 1592203712[fontsize=12]
+	1592203264 -> 1592202240[fontsize=12]
+	1592203264 -> 1592202752[fontsize=12]
+	1592203712 -> 1592203328[fontsize=12]
+	1592203712 -> 1592202112[fontsize=12]
+	1592203328 -> 1592203520[fontsize=12]
+	1592203328 -> 1592203392[fontsize=12]
+	1592202880 -> 1592202304[fontsize=12]
+	1592202880 -> 1592203136[fontsize=12]
+	1592202304 -> 1592203008[fontsize=12]
+	1592202304 -> 1592202176[fontsize=12]
+	1592203136 -> 1590195440[fontsize=12]
+	1590195440 -> 1592202432[fontsize=12]
+	1590195440 -> 1590193648[fontsize=12]
+	1592202432 -> 1592202368[fontsize=12]
+	1592202432 -> 1592202496[fontsize=12]
+	1592202496 -> 1592202944[fontsize=12]
+	1590193648 -> 1590192944[fontsize=12]
+	1590192944 -> 1590194288[fontsize=12]
+	1590192944 -> 1590192176[fontsize=12]
+	1590192176 -> 1590192048[fontsize=12]
+	1590192176 -> 1590194864[fontsize=12]
+	1590194864 -> 1590194352[fontsize=12]
+	1590194864 -> 1590191984[fontsize=12]
+	1590192496 -> 1590194480[fontsize=12]
+	1590192496 -> 1590193584[fontsize=12]
+	1590194480 -> 1590193392[fontsize=12]
+	1590194480 -> 1590192240[fontsize=12]
+	1590193584 -> 1590192560[fontsize=12]
+	1590192560 -> 1590194032[fontsize=12]
+	1590192560 -> 1590194544[fontsize=12]
+	1590194544 -> 1590194608[fontsize=12]
+	1590191664 -> 1590193456[fontsize=12]
+	1590191664 -> 1590191792[fontsize=12]
+	1590193456 -> 1590193328[fontsize=12]
+	1590193456 -> 1590194160[fontsize=12]
+	1590191792 -> 1590192816[fontsize=12]
+	1590192816 -> 1590193712[fontsize=12]
+	1590192816 -> 1590192880[fontsize=12]
+	1590193712 -> 1590194736[fontsize=12]
+	1590193712 -> 1590193136[fontsize=12]
+	1590194736 -> 1590192624[fontsize=12]
+	1590194736 -> 1590192752[fontsize=12]
+	1590192624 -> 1590192688[fontsize=12]
+	1590192624 -> 1590194992[fontsize=12]
+	1590194992 -> 1590194672[fontsize=12]
+	1590194992 -> 1590195568[fontsize=12]
+	1590195568 -> 1590193904[fontsize=12]
+	1590192752 -> 1590195312[fontsize=12]
+	1590193136 -> 1590195248[fontsize=12]
+	1590195248 -> 1590192304[fontsize=12]
+	1590195248 -> 1590193840[fontsize=12]
+	1590192304 -> 1590191856[fontsize=12]
+	1590192304 -> 1590192368[fontsize=12]
+	1590191856 -> 1590195120[fontsize=12]
+	1590191856 -> 1590193776[fontsize=12]
+	1590193840 -> 1590194224[fontsize=12]
+	1590193840 -> 1590193200[fontsize=12]
+	1590192880 -> 1590194800[fontsize=12]
+	1590194800 -> 1590193264[fontsize=12]
+	1590194800 -> 1590193072[fontsize=12]
+	1590193264 -> 1590193968[fontsize=12]
+	1590193264 -> 1590194416[fontsize=12]
+	1590193968 -> 1590193008[fontsize=12]
+	1590193968 -> 1590193520[fontsize=12]
+	1590193072 -> 1590194928[fontsize=12]
+	1590193072 -> 1590195504[fontsize=12]
+	1590191728 -> 1590195056[fontsize=12]
+	1590191728 -> 1590195184[fontsize=12]
+	1590195184 -> 1590191920[fontsize=12]
+	1590195184 -> 1590199680[fontsize=12]
+	1590191920 -> 1590195376[fontsize=12]
+	1590191920 -> 1590192112[fontsize=12]
+	1590199680 -> 1590199040[fontsize=12]
+	1590199680 -> 1590195840[fontsize=12]
+	1590199040 -> 1590199616[fontsize=12]
+	1590199040 -> 1590197248[fontsize=12]
+	1590197248 -> 1590197184[fontsize=12]
+	1590197248 -> 1590198272[fontsize=12]
+	1590197184 -> 1590198528[fontsize=12]
+	1590197184 -> 1590197312[fontsize=12]
+	1590198272 -> 1590198656[fontsize=12]
+	1590198272 -> 1590195968[fontsize=12]
+	1590198656 -> 1590198592[fontsize=12]
+	1590198656 -> 1590196992[fontsize=12]
+	1590196992 -> 1590199552[fontsize=12]
+	1590195968 -> 1590196800[fontsize=12]
+	1590195968 -> 1590198080[fontsize=12]
+	1590198080 -> 1590198336[fontsize=12]
+	1590195840 -> 1590198144[fontsize=12]
+	1590195840 -> 1590196160[fontsize=12]
+	1590198144 -> 1590196096[fontsize=12]
+	1590198144 -> 1590195776[fontsize=12]
+	1590195776 -> 1590198400[fontsize=12]
+	1590196160 -> 1590197120[fontsize=12]
+	1590197120 -> 1590196224[fontsize=12]
+	1590197120 -> 1590198464[fontsize=12]
+	1590198464 -> 1590199488[fontsize=12]
+	1590198464 -> 1590196864[fontsize=12]
+	1590196352 -> 1590197376[fontsize=12]
 
 }
