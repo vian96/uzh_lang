@@ -17,3 +17,9 @@ Onegin library, assembler and cpu from [vian96/study_tasks](https://github.com/v
 - Keywords _const_ and _main_ are currently not in use.
 
 - Currently, symbol '_' is not supported.
+
+- You have to have return at the end of every function
+
+- You can not return nothing
+
+- You probably (I am not sure lol) can not leave garbage in stack (i.e. you should always use result of calculating of expression)
