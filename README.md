@@ -1,6 +1,8 @@
 # Uzh programming language
 
-This is uzh lang (уж in russian - a snake )
+This is uzh lang (уж in russian - a snake).
+
+It uses basic syntax of python with minor changes (see examples folder).
 
 # Problems
 
