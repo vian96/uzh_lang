@@ -23,3 +23,5 @@ Onegin library, assembler and cpu from [vian96/study_tasks](https://github.com/v
 - You can not return nothing
 
 - You probably (I am not sure lol) can not leave garbage in stack (i.e. you should always use result of calculating of expression)
+
+- There is no any proper documentation
