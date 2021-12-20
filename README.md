@@ -50,6 +50,8 @@ To compile uzh file call `uzh file_name` ***WITHOUT extension***. You can run yo
 
 - You can not have more than 1000 local or global variables
 
+- This compiler ***dompletely does not show any proper errors***, so you should be very careful using it. It has A LOT of things it can do that are basically kinda UB.
+
 # TODO
 
 - `break` keyword
@@ -66,7 +68,7 @@ To compile uzh file call `uzh file_name` ***WITHOUT extension***. You can run yo
 
 - Dynamic memory management (I need to write malloc in _uzh_ itself)
 
-- Change to float ~~lol~~.
+- Change to float ~~lol~~
 
-
+- Show errors, static analysis
 
