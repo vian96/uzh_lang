@@ -49,8 +49,13 @@ int main (int argc, char *argv[])
     char *asm_call = (char*) calloc (strlen (argv[1]) + 20, sizeof (char));
     strcpy (asm_call, "asm ");
     strcat (asm_call, argv[1]);
-    
     system (asm_call);
+
+    strcpy (asm_call, argv[1]);
+    strcat (asm_call, ".casm");
+    printf ("Removing %s\n", asm_call);
+    remove (asm_call);
+
     free (asm_call);
     asm_call = nullptr;
 
