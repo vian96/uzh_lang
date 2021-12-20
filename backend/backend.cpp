@@ -28,7 +28,7 @@ void compile_lang (LangTree *tree, FILE *f_out)
     DEB ("Ended compiling main branch\n");
 
     int glob_offset = get_global_offset ();
-    fprintf (f_out, "push %d\npop bx\n", glob_offset);
+    fprintf (f_out, "push %d\npop bx\n\n\n", glob_offset);
     
     compile_tree (tree, f_out);
     fprintf (f_out, "\n\njmp :main\n:end_of_all_program\n");
@@ -71,7 +71,7 @@ void compile_tree (LangTree *tree, FILE *f_out)
             }        
         fprintf (f_out, "    pop cx\n");
 
-        if (is_util (tree->parent, LTU_ASSIGN))
+        if (tree->parent && is_util (tree->parent, LTU_ASSIGN) && tree->parent->left == tree)
             fprintf (f_out, "    pop [cx]\n");
         else
             fprintf (f_out, "    push [cx]\n");

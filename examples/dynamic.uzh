@@ -1,0 +1,58 @@
+# This program is to show implementation of the easiest 
+# stack-based malloc-free prototype
+
+# This magic numbers are from header of cpu
+# language does not suport not-nubers for arrays or defines
+# so we can only use magic numbers ¯\_(ツ)_/¯
+MEM[4999] = 0
+
+# First 2500 cells of memory are for stack-to-free, other 2500 are for memory itself
+freeptr = 2500
+stkfree = 0
+
+def new(size):
+    MEM[stkfree] = size
+    stkfree = stkfree + 1
+    temp = freeptr
+    freeptr = freeptr + size
+    return temp
+
+# returns 1 on success, 0 on fail
+def free():
+    if stkfree <= 0:
+        return 0
+    freeptr = freeptr - MEM[stkfree - 1]
+    stkfree = stkfree - 1
+    return 1
+
+def main():
+    n = input
+    sqrs = new(n)
+    print sqrs
+    cubs = new(3*n)
+    print cubs
+
+    print (new(40))
+    free()
+    free()
+    print new(10)
+
+    # i = 0
+    # while i < n:
+    #     MEM[sqrs + i] = i^2
+    #     MEM[cubs + i] = i^3
+    #     i = i + 1
+
+    # print (222222)
+    # i = 0
+    # while i < n:
+    #     print (MEM[sqrs + i])
+    #     i = i + 1
+    
+    # print (33333333)
+    # i = 0
+    # while i < n:
+    #     print (MEM[cubs + i])
+    #     i = i + 1
+    
+    print (0)

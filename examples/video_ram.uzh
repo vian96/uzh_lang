@@ -1,7 +1,7 @@
 # This magic numbers are from header of cpu
 # language does not suport not-nubers for arrays or defines
 # so we can only use magic numbers ¯\_(ツ)_/¯
-DYNRAM[1999] = 0
+DYNRAM[4999] = 0
 VIDRAM[4000] = 0
 
 def main():

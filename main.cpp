@@ -53,11 +53,13 @@ int main (int argc, char *argv[])
     strcat (asm_call, argv[1]);
     system (asm_call);
 
+    /*
     strcpy (asm_call, argv[1]);
     strcat (asm_call, ".casm");
     printf ("Removing %s\n", asm_call);
     remove (asm_call);
-
+    */
+   
     free (asm_call);
     asm_call = nullptr;
 
