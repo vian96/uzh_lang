@@ -30,7 +30,7 @@ enum LangTreeOper {
     LTO_SIN = 's', LTO_COS = 'c', LTO_LN = 'l',
     LTO_SQRT = 'q',
     // UI
-    LTO_PRINT = 'p', LTO_SCAN = 'i',
+    LTO_PRINT = 'p', LTO_SCAN = 'i', LTO_GRAPH = 'g',
 };
 
 enum LangTreeUtil {

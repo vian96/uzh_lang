@@ -453,7 +453,12 @@ void lang_tree_graph_arrow(const LangTree *tree, FILE *gv_out)
 
 void lang_tree_graph_dump(const LangTree *tree)
     {
-    FILE *gv_out = fopen ("lang_tree.gv", "w");
+    FILE *gv_out = fopen ("logs/lang_tree.gv", "w");
+    if (!gv_out)
+        {
+        printf ("ERROR opening dump file\n");
+        return;
+        }
 
     fprintf (gv_out, "# This is automatically generated dump of language tree\n"
                     "digraph Tree{\n\n"
@@ -461,18 +466,12 @@ void lang_tree_graph_dump(const LangTree *tree)
                     "\tnode[color=\"red\",fontsize=14];\n\n");
 
     lang_tree_graph_node (tree, gv_out);
-
     fprintf (gv_out, "\n");
-
     lang_tree_graph_arrow (tree, gv_out);
 
-    fprintf (gv_out, "\n");
-
-    fprintf (gv_out, "}");
-
+    fprintf (gv_out, "\n}\n");
     fclose (gv_out);
-
-    system ("dot -Tpng lang_tree.gv -o lang_tree.png");
+    system ("dot -Tpng logs/lang_tree.gv -o logs/lang_tree.png");
     }
 
 

@@ -14,7 +14,7 @@ Onegin library, assembler and cpu from [vian96/study_tasks](https://github.com/v
 
 If you downloaded this repo without change and folder `uzh_lang` is in the same directory as repo `study_tasks` you can just run `lang.bat` for compiling. Otherwise you need to change files in these bat-files to yours. 
 
-To compile uzh file call `uzh file_name` ***WITHOUT extension***. You can run your app with `app file_name` or simply pass it to your cpu executor. E.g. you can run `uzh examples/ackerman && examples/ackerman.boac`.
+To compile uzh file call `uzh file_name` ***WITHOUT extension***. You can run your app with `app file_name` or simply pass it to your cpu executor. E.g. you can run `uzh examples/ackerman && "examples/ackerman.boac"`.
 
 # Problems
 

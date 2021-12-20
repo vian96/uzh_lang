@@ -28,6 +28,8 @@ int main (int argc, char *argv[])
     LangTree *tree = lang_frontend (code);
     lang_tree_dump (tree, stdout);
     printf ("\n");
+    
+    printf ("\nDoing dumps\n");
     lang_tree_graph_dump (tree);
 
     char *out_name = (char*) calloc (strlen (argv[1]) + 10, sizeof (char));
