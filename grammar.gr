@@ -21,7 +21,7 @@ Grammars:
     pow  := neg  [  [* | /]           neg ]*
 
     neg   := {[!]} brack
-    brack := [sin | cos | ln | print] ( var ) | input | var
+    brack := [sin | cos | ln | print] ( var ) | [graph | input] | var
 
     var       := number | ( expression ) | func_call | id {[expression]}
     func_call := id ( {expression [, expression]} )

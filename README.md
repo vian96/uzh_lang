@@ -1,10 +1,22 @@
 # Uzh programming language
 
-This is uzh lang (уж in russian - a snake).
+This is uzh lang (_Уж_ in russian - a snake).
 
 It uses basic syntax of python with minor changes (see [examples folder](url)).
 
-Source code is parsed to tree with [standart](https://github.com/futherus/Language) made by [futherus](https://github.com/futherus).
+Source code is parsed to tree with [standart](https://github.com/futherus/Language) made by [futherus](https://github.com/futherus) using grammar defined in `grammar.gr`.
+
+# Major difference with python
+
+- `||` and `&&` instead of `and` and `or`
+
+- You can only init global vars outside of function, in the beginning, `main` is called
+
+- You can init arrays only with numbers (`arr[99] = 0` creates array with len of 99+1 and inits element 99 with zero)
+
+- Globals are always covering locals
+
+- Input does not need `()`
 
 # Requirements
 
