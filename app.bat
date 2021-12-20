@@ -1,1 +1,1 @@
-"../study_tasks/asm/cpu/cpu" test.boac
+"../study_tasks/asm/cpu/cpu" %*.boac

@@ -20,7 +20,7 @@ void compile_lang (LangTree *tree, FILE *f_out)
              "Uzh lang compiler\n"
              "; register bx is used for pointing to begin of local vars\n"
              "; register cx is used for temporary using of var address\n"
-             "; register dx is used for returning values from func\n");
+             "; register dx is used for returning values from func\n\n");
     
     init_name_tables ();
     compile_main_branch (tree, f_out);
@@ -34,7 +34,7 @@ void compile_lang (LangTree *tree, FILE *f_out)
     DEB ("Ended compiling all program\n");
     }
 
-void compile_tree (LangTree *tree, FILE *f_out, int *depth)
+void compile_tree (LangTree *tree, FILE *f_out)
     {
     DEB ("Tree type is %c, util is %c\n", tree->type, tree->util);
     if (is_type (tree, LT_NUM))
@@ -108,130 +108,61 @@ void compile_tree (LangTree *tree, FILE *f_out, int *depth)
         return;
         }
 
-    // TODO reduce copy-paste
-    if (is_type (tree, LT_OPER))
-        {
-        DEB ("Compilin oper %c\n", tree->oper);
-        switch (tree->oper)
-        {
-        case LTO_PRINT:
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "out\n");
-            return;
-        case LTO_SCAN:
-            fprintf (f_out, "in\n");
+#define OPER_TO_ASM(oper_, asm_cmd_)                \
+    case LTO_##oper_:                               \
+            if (tree->left)                         \
+                compile_tree (tree->left, f_out);   \
+            if (tree->right)                        \
+                compile_tree (tree->right, f_out);  \
+            fprintf (f_out, #asm_cmd_ "\n");        \
             return;
 
-        case LTO_PLUS:
-            compile_tree (tree->left, f_out);
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "add\n");
-            return;
-        case LTO_MINUS:
-            compile_tree (tree->left, f_out);
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "sub\n");
-            return;
-        case LTO_MUL:
-            compile_tree (tree->left, f_out);
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "mul\n");
-            return;
-        case LTO_DIV:
-            compile_tree (tree->left, f_out);
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "div\n");
-            return;
-        case LTO_POW:
-            compile_tree (tree->left, f_out);
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "pow\n");
-            return;
-        case LTO_L:
-            compile_tree (tree->left, f_out);
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "less\n");
-            return;
-        case LTO_G:
-            compile_tree (tree->left, f_out);
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "great\n");
-            return;
-        case LTO_LEQ:
-            compile_tree (tree->left, f_out);
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "leq\n");
-            return;
-        case LTO_GEQ:
-            compile_tree (tree->left, f_out);
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "geq\n");
-            return;
-        case LTO_EQ:
-            compile_tree (tree->left, f_out);
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "eq\n");
-            return;
-        case LTO_NEQ:
-            compile_tree (tree->left, f_out);
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "neq\n");
-            return;
-        case LTO_OR:
-            compile_tree (tree->left, f_out);
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "or\n");
-            return;
-        case LTO_AND:
-            compile_tree (tree->left, f_out);
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "and\n");
-            return;
-        case LTO_NOT:
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "not\n");
-            return;
-        case LTO_SIN:
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "sin\n");
-            return;
-        case LTO_COS:
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "cos\n");
-            return;
-        case LTO_LN:
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "log\n");
-            return;
-        case LTO_SQRT:
-            compile_tree (tree->right, f_out);
-            fprintf (f_out, "sqrt\n");
-            return;
-        
-        default:
-            break;
+    if (is_type (tree, LT_OPER))
+        {
+        DEB ("Compiling oper %c\n", tree->oper);
+        switch (tree->oper)
+            {
+            OPER_TO_ASM (PRINT, out)
+            OPER_TO_ASM (SCAN, in)
+
+            OPER_TO_ASM (PLUS, add)
+            OPER_TO_ASM (MINUS, sub)
+            OPER_TO_ASM (MUL, mul)
+            OPER_TO_ASM (DIV, div)
+            OPER_TO_ASM (POW, pow)
+
+            OPER_TO_ASM (L, less)
+            OPER_TO_ASM (G, great)
+            OPER_TO_ASM (LEQ, leq)
+            OPER_TO_ASM (GEQ, geq)
+            OPER_TO_ASM (EQ, eq)
+            OPER_TO_ASM (NEQ, neq)
+
+            OPER_TO_ASM (OR, or)
+            OPER_TO_ASM (AND, and)
+            OPER_TO_ASM (NOT, not)
+
+            OPER_TO_ASM (SIN, sin)
+            OPER_TO_ASM (COS, cos)
+            OPER_TO_ASM (LN, log)
+            OPER_TO_ASM (SQRT, sqrt)
+
+            default:
+                break;
+            }
         }
-        }
+
+#undef OPER_TO_ASM
 
     if (is_util (tree, LTU_PARAM))
         {
-        if (!depth)
-            {
-            if (tree->left)
-                compile_tree (tree->left, f_out);
-            DEB ("Found param of func\n");
-            bool is_global = 0;
-            get_from_name_table (tree->right->str, 1, &is_global);
-            return;
-            }
         if (tree->left)
-            compile_tree (tree->left, f_out, depth);
-
-        DEB ("FOUND params from call\n");
-        compile_tree (tree->right, f_out);
-        fprintf (f_out, " push bx \n push %d \n add \n pop cx \n pop [cx] \n", *depth);
-        (*depth)++;
+            compile_tree (tree->left, f_out);
+        DEB ("Found param of func\n");
+        bool is_global = 0;
+        get_from_name_table (tree->right->str, 1, &is_global);
         return;
+        
         }
 
     if (is_util (tree, LTU_WHILE))
@@ -279,7 +210,6 @@ void compile_tree (LangTree *tree, FILE *f_out, int *depth)
                 param = param->parent;
                 }
         
-        int depth = 0;
         fprintf (f_out, "call :%s\npush dx\n\n", tree->left->str);
         fprintf (f_out, "    push bx\n    push %d\n"
                         "    add    \n    pop bx\n", -offset);
@@ -311,14 +241,6 @@ void compile_tree (LangTree *tree, FILE *f_out, int *depth)
             compile_tree (dec->right, f_out);
         fprintf(f_out, "    :end_of_if_%d\n", cur_if_ind);
 
-        return;
-        }
-
-
-    if (is_oper (tree, LTO_PRINT))
-        {
-        compile_tree (tree->right, f_out);
-        fprintf (f_out, "out\n");
         return;
         }
 
@@ -356,28 +278,8 @@ void compile_main_branch (LangTree *tree, FILE *f_out)
         }
     }
 
+#undef is_type
+#undef is_util
+#undef is_oper
 
-/*
-while (tree != nullptr)
-        {
-        if (is_util (tree->right, LTU_ASSIGN))
-            {
-            compile_assign (tree->right, f_out);
-            }
-        else if (is_util (tree->right, LTU_DEF))
-            {
-            // compile function
-            LangTree *def = tree->right;
-            compile_func_def (def->left, f_out);
-            compile_code_block (def->right, f_out);
-            clear_local_names ();
-            }
-        else
-            {
-            printf ("Unexpected tree at main branch, its type is %c\n", tree->type);
-            return;
-            }
-        tree = tree->left;
-        }
-*/
 

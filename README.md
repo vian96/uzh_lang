@@ -18,10 +18,16 @@ Onegin library, assembler and cpu from [vian96/study_tasks](https://github.com/v
 
 - Currently, symbol '_' is not supported.
 
-- You have to have return at the end of every function
+- You have to have return at the end of every function (except main, see further)
+
+- You can not use return in main
 
 - You can not return nothing
 
 - You probably (I am not sure lol) can not leave garbage in stack (i.e. you should always use result of calculating of expression)
 
 - There is no any proper documentation
+
+- Params are currently calculated right-to-left, but it can change so it is UB
+
+- You can not have more than 1000 local or global variables

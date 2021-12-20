@@ -18,13 +18,14 @@ LangTree *lang_frontend (Lexem *code)
         {
         code++; // to skip LEX_SPACE
         tree->parent = read_func (&code, nullptr);
+        
         if (!tree->parent)
             tree->parent = read_statement (&code, nullptr);
         if (tree->parent == nullptr)
             {
             printf ("Error at code\n");
-            // TODO if it returns tree, change it to return null and free
-            return tree;
+            free_tree_lang (tree);
+            return nullptr;
             }
         DEB ("Read part!!\n");
         tree->parent->left = tree;
@@ -54,7 +55,6 @@ LangTree *read_func (Lexem **code, LangTree *parent)
     DEB ("Did setup\n");
     
     // TODO move read_param to another func
-    // TODO is this situation good enough for goto?
     do {
         // printf 
         if (!is_id ("def"))
@@ -74,23 +74,7 @@ LangTree *read_func (Lexem **code, LangTree *parent)
         DEB ("Seen (\n");
 
         if (lex->type == LEX_ID)
-            {
-            LangTree *param = new_lt_empty ();
-            while (lex->type == LEX_ID)
-                {
-                param->parent = new_lt_util (LTU_PARAM);
-                param->parent->left = param;
-                param = param->parent;
-                
-                param->right = new_lt_id (lex->str, param);
-                lex++;
-                if (!is_sym (","))
-                    break;
-                lex++;
-                }
-            func->right = param;
-            param->parent = func;
-            }
+            func->right = read_param (code, func);
         
         if (!is_sym (")"))
             break;
@@ -112,6 +96,32 @@ LangTree *read_func (Lexem **code, LangTree *parent)
     free_tree_lang (tree);
     *code = start;
     return nullptr;
+    }
+
+LangTree *read_param (Lexem **code, LangTree *parent)
+    {
+    assert (code);
+    assert (*code);
+    DEB ("Starting params\n");
+    print_lexem_line (*code);
+    LangTree *param = new_lt_empty ();
+
+    while (lex->type == LEX_ID)
+        {
+        param->parent = new_lt_util (LTU_PARAM);
+        param->parent->left = param;
+        param = param->parent;
+        
+        param->right = new_lt_id (lex->str, param);
+        lex++;
+
+        if (!is_sym (","))
+            break;
+        lex++;
+        }
+
+    param->parent = parent;
+    return param;
     }
 
 LangTree *read_statement (Lexem **code, LangTree *parent)
@@ -142,7 +152,6 @@ LangTree *read_statement (Lexem **code, LangTree *parent)
     return nullptr;
     }
 
-// TODO i WANT goto, but is it okay? it is try-catch way
 LangTree *read_block (Lexem **code, int n, LangTree *parent)
     {
     assert (code);
@@ -166,7 +175,7 @@ LangTree *read_block (Lexem **code, int n, LangTree *parent)
                 {
                 printf ("CHCK %d %d\n", lex->type, lex->cnt);
                 printf ("Indentation error, expected: %d or %d, got: %d\n", n, n-4, lex->cnt);
-                goto fail_read_block_free;
+                break;
                 }
             DEB ("Success block\n");
             tree->parent = parent;
@@ -181,7 +190,7 @@ LangTree *read_block (Lexem **code, int n, LangTree *parent)
         if (!tree->parent)
             tree->parent = read_statement (code, nullptr);
         if (!tree->parent)
-            goto fail_read_block_free;
+            break;
 
         DEB ("Read sth\n");
 
@@ -189,7 +198,6 @@ LangTree *read_block (Lexem **code, int n, LangTree *parent)
         tree = tree->parent;
         }
 
-    fail_read_block_free:
     free_tree_lang (tree);
     *code = start;
     DEB ("FAIL block\n");
@@ -247,6 +255,7 @@ LangTree *read_var (Lexem **code, LangTree *parent)
         print_lexem_line (lex);
         lex++;
         LangTree *tree = read_expr (code, parent);
+
         if (!tree)
             {
             printf ("Error reading expression in ()\n");
@@ -260,6 +269,7 @@ LangTree *read_var (Lexem **code, LangTree *parent)
             free_tree_lang (tree);
             return nullptr;
             }
+
         lex++; 
         return tree;
         }
@@ -267,7 +277,7 @@ LangTree *read_var (Lexem **code, LangTree *parent)
     if (lex->type != LEX_ID)
         return nullptr;
     
-    if (!isalnum (lex->str[0]))
+    if (!isalpha (lex->str[0]))
         return nullptr;
 
     LangTree *tree = new_lt_id (lex->str, parent);
@@ -276,6 +286,7 @@ LangTree *read_var (Lexem **code, LangTree *parent)
         {
         lex++;
         tree->right = read_expr (code, tree);
+
         if (!tree->right)
             {
             printf ("Failed to read expression in []\n");
@@ -288,10 +299,12 @@ LangTree *read_var (Lexem **code, LangTree *parent)
             free_tree_lang (tree);
             return nullptr;
             }
+
         lex++;
         }
     else if (is_sym ("("))
         {
+        // TODO move to function read_call
         lex++;
         DEB ("Found function call\n");
         print_lexem_line (lex);
@@ -339,7 +352,7 @@ LangTree *read_var (Lexem **code, LangTree *parent)
     return tree;
     }
 
-// WARNING this is copy-paste of read_while so be accurate when changing!!!!
+// TODO is it okay to have these two (if and while) similar functions
 LangTree *read_if (Lexem **code, int n, LangTree *parent)
     {
     assert (code);
@@ -388,12 +401,14 @@ LangTree *read_if (Lexem **code, int n, LangTree *parent)
                     decis->right = read_block (code, n + 4, decis);
                     if (!decis->right)
                         break;
+                    DEB ("Success if with else\n");
                     return tree;
                     }
                 DEB ("Didn't found : after else\n");
                 break;
                 }
-            lex--;
+            else
+                lex--; // to avoid reading spaces when there is no 'else'
             }
         DEB ("Success if\n");
         return tree;
@@ -404,7 +419,6 @@ LangTree *read_if (Lexem **code, int n, LangTree *parent)
     return nullptr;
     }
 
-// WARNING this is copy-paste of read_if so be accurate when changing!!!!
 LangTree *read_while (Lexem **code, int n, LangTree *parent)
     {
     assert (code);
@@ -475,8 +489,6 @@ LangTree *read_expr (Lexem **code, LangTree *parent)
     {
     assert (code);
     assert (*code);
-    DEB ("Got in expr\n");
-    print_lexem_line (lex);
 
     Lexem *start = *code;
     LangTree *tree = read_and (code, parent);
@@ -490,7 +502,6 @@ LangTree *read_expr (Lexem **code, LangTree *parent)
             if (!is_sym ("||"))
                 return tree;
             lex++;
-            DEB ("Continue expr\n");
             tree->parent = new_lt_op (LTO_OR, parent);
             tree->parent->left = tree;
             tree = tree->parent;
@@ -506,202 +517,72 @@ LangTree *read_expr (Lexem **code, LangTree *parent)
     return nullptr;
     }
 
-LangTree *read_and (Lexem **code, LangTree *parent)
-    {
-    assert (code);
-    assert (*code);
+#define BEG_BIN(cur_nam_, child_nam_)   \
+LangTree *read_##cur_nam_ (Lexem **code, LangTree *parent)   \
+    {                                                       \
+    assert (code);                                          \
+    assert (*code);                                         \
+    Lexem *start = *code;                                   \
+    LangTree *tree = read_##child_nam_ (code, parent);      \
+    if (!tree)                                              \
+        return nullptr;                                     \
+    do {                                                    \
+        while (1)                                           \
+            {                                               
 
-    Lexem *start = *code;
-    LangTree *tree = read_eq (code, parent);
-    if (!tree)
-        return nullptr;
-
-    do {
-        while (1)
-            {
-            if (!is_sym ("&&"))
-                return tree;
-            lex++;
-            tree->parent = new_lt_op (LTO_AND, parent);
-            tree->parent->left = tree;
-            tree = tree->parent;
-            tree->right = read_eq (code, tree);
-            if (!tree->right)
-                break;
-            }
-    } while (0);
-
-    free_tree_lang (tree);
-    *code = start;
-    return nullptr;
-    }
-
-LangTree *read_eq (Lexem **code, LangTree *parent)
-    {
-    assert (code);
-    assert (*code);
-
-    Lexem *start = *code;
-    LangTree *tree = read_comp (code, parent);
-    if (!tree)
-        return nullptr;
-
-    do {
-        while (1)
-            {
-            if (is_sym ("=="))
-                tree->parent = new_lt_op (LTO_EQ, parent);
-            else if (is_sym ("!="))
-                tree->parent = new_lt_op (LTO_NEQ, parent);
-            else 
-                return tree;
-            lex++;
-            tree->parent->left = tree;
-            tree = tree->parent;
-            tree->right = read_comp (code, tree);
-            if (!tree->right)
-                break;
-            }
-    } while (0);
-
-    free_tree_lang (tree);
-    *code = start;
-    return nullptr;
-    }
-
-LangTree *read_comp (Lexem **code, LangTree *parent)
-    {
-    assert (code);
-    assert (*code);
-
-    Lexem *start = *code;
-    LangTree *tree = read_sum (code, parent);
-    if (!tree)
-        return nullptr;
-
-    do {
-        while (1)
-            {
-            if (is_sym ("<"))
-                tree->parent = new_lt_op (LTO_L, parent);
-            else if (is_sym (">"))
-                tree->parent = new_lt_op (LTO_G, parent);
-            else if (is_sym ("<="))
-                tree->parent = new_lt_op (LTO_LEQ, parent);
-            else if (is_sym (">="))
-                tree->parent = new_lt_op (LTO_GEQ, parent);
+#define GEN_BIN(cur_op_, cur_str_)              \
+            if (is_sym (#cur_str_))                  \
+                tree->parent = new_lt_op (LTO_##cur_op_, parent); \
             else
-                return tree;
-            lex++;
-            tree->parent->left = tree;
-            tree = tree->parent;
-            tree->right = read_sum (code, tree);
-            if (!tree->right)
-                break;
-            }
-    } while (0);
 
-    free_tree_lang (tree);
-    *code = start;
-    return nullptr;
+#define END_BIN(cur_nam_, child_nam_)                     \
+                return tree;                    \
+            lex++;                              \
+            tree->parent->left = tree;          \
+            tree = tree->parent;                \
+            tree->right = read_##child_nam_ (code, tree); \
+            if (!tree->right)                   \
+                break;                          \
+            }                                   \
+    } while (0);                                \
+    free_tree_lang (tree);                      \
+    *code = start;                              \
+    return nullptr;                             \
     }
 
-LangTree *read_sum (Lexem **code, LangTree *parent)
-    {
-    assert (code);
-    assert (*code);
+BEG_BIN (and, eq)
+    GEN_BIN (AND, &&)
+END_BIN (and, eq)
 
-    Lexem *start = *code;
-    LangTree *tree = read_mul (code, parent);
-    if (!tree)
-        return nullptr;
+BEG_BIN (eq, comp)
+    GEN_BIN (EQ, ==)
+    GEN_BIN (NEQ, !=)
+END_BIN (eq, comp)
 
-    do {
-        while (1)
-            {
-            if (is_sym ("+"))
-                tree->parent = new_lt_op (LTO_PLUS, parent);
-            else if (is_sym ("-"))
-                tree->parent = new_lt_op (LTO_MINUS, parent);
-            else
-                return tree;
-            lex++;
-            tree->parent->left = tree;
-            tree = tree->parent;
-            tree->right = read_mul (code, tree);
-            if (!tree->right)
-                break;
-            }
-    } while (0);
+BEG_BIN (comp, sum)
+    GEN_BIN (L, <)
+    GEN_BIN (G, >)
+    GEN_BIN (LEQ, <=)
+    GEN_BIN (GEQ, >=)
+END_BIN (comp, sum)
 
-    free_tree_lang (tree);
-    *code = start;
-    return nullptr;
-    }
-    
-LangTree *read_mul (Lexem **code, LangTree *parent)
-    {
-    assert (code);
-    assert (*code);
+BEG_BIN (sum, mul)
+    GEN_BIN (PLUS, +)
+    GEN_BIN (MINUS, -)
+END_BIN (sum, mul)
 
-    Lexem *start = *code;
-    LangTree *tree = read_pow (code, parent);
-    if (!tree)
-        return nullptr;
+BEG_BIN (mul, pow)
+    GEN_BIN (MUL, *)
+    GEN_BIN (DIV, /)
+END_BIN (mul, pow)
 
-    do {
-        while (1)
-            {
-            if (is_sym ("*"))
-                tree->parent = new_lt_op (LTO_MUL, parent);
-            else if (is_sym ("/"))
-                tree->parent = new_lt_op (LTO_DIV, parent);
-            else
-                return tree;
-            lex++;
-            tree->parent->left = tree;
-            tree = tree->parent;
-            tree->right = read_pow (code, tree);
-            if (!tree->right)
-                break;
-            }
-    } while (0);
+BEG_BIN (pow, neg)
+    GEN_BIN (POW, ^)
+END_BIN (pow, neg)
 
-    free_tree_lang (tree);
-    *code = start;
-    return nullptr;
-    }
-
-LangTree *read_pow (Lexem **code, LangTree *parent)
-    {
-    assert (code);
-    assert (*code);
-
-    Lexem *start = *code;
-    LangTree *tree = read_neg (code, parent);
-    if (!tree)
-        return nullptr;
-
-    do {
-        while (1)
-            {
-            if (is_sym ("^"))
-                tree->parent = new_lt_op (LTO_POW, parent);
-            else
-                return tree;
-            lex++;
-            tree->parent->left = tree;
-            tree = tree->parent;
-            tree->right = read_neg (code, tree);
-            if (!tree->right)
-                break;
-            }
-    } while (0);
-
-    free_tree_lang (tree);
-    *code = start;
-    return nullptr;
-    }
+#undef BEG_BIN                                            
+#undef GEN_BIN
+#undef END_BIN
 
 LangTree *read_neg (Lexem **code, LangTree *parent)
     {
@@ -761,23 +642,8 @@ LangTree *read_brack (Lexem **code, LangTree *parent)
     return tree;
     }
 
-/* 
-Use as template
-LangTree *read_ (Lexem **code, LangTree *parent)
-    {
-    assert (code);
-    assert (*code);
 
-    Lexem *start = *code;
-    LangTree *tree = new_lt_empty ();
-
-    do {
-
-    } while (0);
-
-    free_tree_lang (tree);
-    *code = start;
-    return nullptr;
-    }
-*/
-
+#undef lex
+#undef is_sym
+#undef is_id
+#undef is_space

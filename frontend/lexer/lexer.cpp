@@ -17,11 +17,9 @@ Lexem *read_code_lexem (const char *file_name)
     FileText code = read_text_file (f_in);
     fclose (f_in);
     f_in = nullptr;
+    DEB ("Read file\n");
 
-    DEB ("Opened file\n");
-
-    Lexem *lexs = (Lexem*) calloc (code.count * 100, sizeof (*lexs));
-
+    Lexem *lexs = (Lexem*) calloc (code.count * 128, sizeof (*lexs));
     DEB ("Allocated lexems\n");
 
     for (size_t line = 0; line < code.count; line++) 
@@ -41,7 +39,6 @@ Lexem *read_code_lexem (const char *file_name)
         }
 
     DEB ("Removed comments\n");
-
     size_t cur_pos = 0;
     for (size_t line = 0; line < code.count; line++) 
         {
@@ -80,6 +77,13 @@ Lexem *read_code_lexem (const char *file_name)
     return lexs;
     }
 
+#define COPY_STR(n) do {                                                    \
+                        to_ret.str = (char*) calloc (n+1, sizeof (char)); \
+                        for (int i = 0; i < n; i++)     \
+                            to_ret.str[i] = (*str)[i];  \
+                        (*str) += n;                    \
+                    } while(0)
+
 Lexem read_lexem (const char **str)
     {
     assert (str);
@@ -113,57 +117,45 @@ Lexem read_lexem (const char **str)
     
     DEB ("Reading sym %s\n", *str);
     to_ret.type = LEX_SYM;
-    //  to_ret.str = copy_str_if (str, is_lexem_oper);
-
-#define COPY_STR(n) do { to_ret.str = (char*) calloc (n+1, sizeof (char)); \
-        for (int i = 0; i < n; i++)     \
-            to_ret.str[i] = (*str)[i];  \
-        (*str) += n;        } while(0)
 
     switch (**str)
-    {
-    case ')':
-    case '(':
-    case '/':
-    case '*':
-    case '-':
-    case '+':
-    case '^':
-    case ':':
-    case ',':
-    case '[':
-    case ']':
-        COPY_STR (1);
-        break;
-
-    case '|':
-    case '&':
-        COPY_STR (2);
-        break;
-        
-    case '!':
-    case '<':
-    case '>':
-    case '=':
-        if ((*str)[1] == '=')
-            COPY_STR (2);
-        else 
+        {
+        case ')':
+        case '(':
+        case '/':
+        case '*':
+        case '-':
+        case '+':
+        case '^':
+        case ':':
+        case ',':
+        case '[':
+        case ']':
             COPY_STR (1);
-        break;
-    
-    default:
-        printf ("Unexpected symbol %c\n", **str);
-        break;
-    }
+            break;
+
+        case '|':
+        case '&':
+            COPY_STR (2);
+            break;
+            
+        case '!':
+        case '<':
+        case '>':
+        case '=':
+            if ((*str)[1] == '=')
+                COPY_STR (2);
+            else 
+                COPY_STR (1);
+            break;
+        
+        default:
+            printf ("Unexpected symbol %c\n", **str);
+            break;
+        }
 #undef COPY_STR
     
     return to_ret;
-    }
-
-// TODO unused function, remove it
-int is_lexem_oper (int sym)
-    {
-    return sym && (bool) strchr ("+-*/^<>=!|&():,", sym);
     }
 
 char *copy_str_if (const char **str, int (*cond)(int))

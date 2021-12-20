@@ -1,1 +1,1 @@
-"../study_tasks/asm/asm/asm" test.casm
+"../study_tasks/asm/asm/asm" %*.casm

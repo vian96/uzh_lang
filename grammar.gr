@@ -1,37 +1,39 @@
 Uzh
 
-code := [assignment | function]*
-function := def id ( {id [, id]} ): \n block(4)
-block(n) := [space(n) [statement(n) | while(n) | if(n)] ]*
+Grammars:
+    code     := [assignment | function]*
+    function := def id ( {id [, id]} ): \n block(4)
+    block(n) := [space(n) [statement(n) | while(n) | if(n)] ]*
 
-while(n) := while expression: block(n+4)
-if(n) := if expression: block(n+4) {space(n) else: block(n+4)}
+    while(n) := while expression: block(n+4)
+    if(n)     := if   expression: block(n+4) {\n space(n) else: block(n+4)}
 
-statement := [assignment | expression | return]
-assignment := var '=' expression
-return := return expression
+    statement  := [assignment | expression | return]
+    assignment := var '=' expression
+    return     := return expression
 
-expression := and [|| and]*
-and := eq && eq
-eq := comp [[== | !=] comp]*
-comp := sum [[< | > | <= | >=] sum]*
-sum := mul [[+ | -] mul]*
-mul := pow [[* | /] pow]*
+    expr := and  [   ||               and ]*
+    and  := eq   [   &&               eq  ]*
+    eq   := comp [  [== | !=]         comp]*
+    comp := sum  [  [< | > | <= | >=] sum ]*
+    sum  := mul  [  [+ | -]           mul ]*
+    mul  := pow  [  [* | /]           pow ]*
+    pow  := neg  [  [* | /]           neg ]*
 
-pow := neg [[* | /] neg]*
-neg := [!]* brack
-// TODO scan is zero-arg oper, i did in code but did not change grammar
-brack := [ [sin | cos | ln | print | scan] ( var ) ] | var
+    neg   := {[!]} brack
+    brack := [sin | cos | ln | print] ( var ) | input | var
 
-var := number | ( expression ) | func_call | id {[expression]}
-func_call := id ( {expression [, expression]} )
+    var       := number | ( expression ) | func_call | id {[expression]}
+    func_call := id ( {expression [, expression]} )
 
-number, id are axioms
-
+Lexems:
+    number = [0-9]+
+    id     = [a-z][a-z0-9]*
 
 How to read
+
 while !Eof:
-    Tree->parent = read_
-    Tree->parent->left = tree
-    Tree = tree->parent
+    tree->parent = read_
+    tree->parent->left = tree
+    tree = tree->parent
 

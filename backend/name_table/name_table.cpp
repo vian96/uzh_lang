@@ -9,7 +9,7 @@
 
 static const int NOT_FOUND_TABLE = -0x1F0DE;
 
-// TODO remove global bars
+// TODO remove global vars
 static NameTable global_names = {};
 static NameTable local_names = {};
 

@@ -1,5 +1,5 @@
 #include "lang_tree.h"
-#include "../lexer/lexer.h"
+#include "../frontend/lexer/lexer.h"
 
 #include <asm/asm/string_utils.h>
 
@@ -104,6 +104,7 @@ LangTree *read_lang_tree (const char **str, LangTree *parent)
         }
 
     // TODO change if change type of num
+    // TODO add reader of main function
     int num = 0;
     LangTreeOper oper = LTO_INVALID;
     LangTreeUtil util = LTU_INVALID;
@@ -156,7 +157,6 @@ LangTree *read_lang_tree (const char **str, LangTree *parent)
     return tree;
     }
 
-// TODO is there any way to reduce copy-paste?
 LangTreeOper get_lt_oper (const char **str)
     {
     assert (str);

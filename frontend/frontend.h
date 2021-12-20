@@ -2,11 +2,13 @@
 #define UZH_FRONTEND_H
 
 #include "../tree/lang_tree.h"
-#include "../lexer/lexer.h"
+#include "lexer/lexer.h"
 
 LangTree *lang_frontend (Lexem *code);
 
 LangTree *read_func (Lexem **code, LangTree *parent);
+
+LangTree *read_param (Lexem **code, LangTree *parent);
 
 LangTree *read_statement (Lexem **code, LangTree *parent);
 
