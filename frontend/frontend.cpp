@@ -627,8 +627,12 @@ LangTree *read_brack (Lexem **code, LangTree *parent)
         lex++;
         return new_lt_op (LTO_SCAN, parent);
         }
-    
-    if (!tree)
+    else if (is_id ("graph"))
+        {
+        lex++;
+        return new_lt_op (LTO_GRAPH, parent);
+        }
+    else
         return read_var (code, parent);
         
     lex++;

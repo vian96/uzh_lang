@@ -22,6 +22,7 @@ void compile_lang (LangTree *tree, FILE *f_out)
              "; register cx is used for temporary using of var address\n"
              "; register dx is used for returning values from func\n\n");
     
+    DEB ("Starting compiling main branch\n");
     init_name_tables ();
     compile_main_branch (tree, f_out);
     DEB ("Ended compiling main branch\n");
@@ -123,6 +124,7 @@ void compile_tree (LangTree *tree, FILE *f_out)
         switch (tree->oper)
             {
             OPER_TO_ASM (PRINT, out)
+            OPER_TO_ASM (GRAPH, print)
             OPER_TO_ASM (SCAN, in)
 
             OPER_TO_ASM (PLUS, add)
@@ -255,26 +257,25 @@ void compile_main_branch (LangTree *tree, FILE *f_out)
     assert (tree);
     assert (f_out);
 
-    while (tree)
+    if (tree->left)
+        compile_main_branch (tree->left, f_out);
+
+    if (tree->right && is_util (tree->right, LTU_ASSIGN))
         {
-        if (tree->right && is_util (tree->right, LTU_ASSIGN))
-            {
-            DEB ("starting reading var\n");
-            LangTree *var = tree->right->left;
-            char *name = var->str;
-            int size = 0;
-            if (var->right && is_type (var->right, LT_NUM))
-                size = var->right->num;
-                
-            DEB ("Adding var to globals\n");
-            add_to_global_names (name, size + 1);
-            }
-        else if (tree->right && !is_util (tree->right, LTU_DEF))
-            {
-            printf ("Unexpected tree at main branch, its type is %c\n", tree->type);
-            return;
-            }
-        tree = tree->left;
+        DEB ("starting reading var\n");
+        LangTree *var = tree->right->left;
+        char *name = var->str;
+        int size = 0;
+        if (var->right && is_type (var->right, LT_NUM))
+            size = var->right->num;
+            
+        DEB ("Adding var to globals\n");
+        add_to_global_names (name, size + 1);
+        }
+    else if (tree->right && !is_util (tree->right, LTU_DEF))
+        {
+        printf ("Unexpected tree at main branch, its type is %c\n", tree->type);
+        return;
         }
     }
 
