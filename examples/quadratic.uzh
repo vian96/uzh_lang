@@ -6,22 +6,22 @@ def main():
     if a!=0:
         d = (b^2 - 4*a*c)
         if d==0:
-            print 1
+            print (1)
             print (0 - b/(2*a))
         if d < 0:
-            print 0
+            print (0)
         if d > 0:
             d = sqrt (d)
-            print 2
+            print (2)
             print ((0 - b - d)/(2*a))
             print ((0 - b + d)/(2*a))
     else:
         if b==0:
             if c==0:
-                print 100500
+                print (100500)
             else:
-                print 0
+                print (0)
         else:
-            print 1
+            print (1)
             print (0-c/b)
-    print 66
+    print (66)

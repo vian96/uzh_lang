@@ -79,17 +79,6 @@ void compile_tree (LangTree *tree, FILE *f_out)
         return;
         }
 
-    if (is_util (tree, LTU_FUNC))
-        {
-        DEB ("Compiling func\n");
-        fprintf (f_out, "\njmp :end_of_func_%s\n:%s\n", tree->left->str, tree->left->str);
-        clear_local_names ();
-        if (tree->right) 
-            compile_tree (tree->right, f_out);
-        DEB ("Created local names from param\n");
-        return;
-        }
-
     if (is_util (tree, LTU_DEF))
         {
         DEB ("Compiling def\n");
@@ -97,7 +86,20 @@ void compile_tree (LangTree *tree, FILE *f_out)
         compile_tree (tree->right, f_out);
         if (!strcmp (tree->left->left->str, "main"))
             fprintf (f_out, "\njmp :end_of_all_program\n");
+
         fprintf (f_out, "\n:end_of_func_%s\n\n", tree->left->left->str);
+        return;
+        }
+
+    if (is_util (tree, LTU_FUNC))
+        {
+        DEB ("Compiling func\n");
+        fprintf (f_out, "\njmp :end_of_func_%s\n:%s\n", tree->left->str, tree->left->str);
+        clear_local_names ();
+        if (tree->right) 
+            compile_tree (tree->right, f_out);
+
+        DEB ("Created local names from param\n");
         return;
         }
 
@@ -173,11 +175,17 @@ void compile_tree (LangTree *tree, FILE *f_out)
         int cur_while_ind = while_ind;
         while_ind++;
 
-        fprintf (f_out, "; starting while %d\n    :begin_of_while_%d\n", cur_while_ind, cur_while_ind);
-        compile_tree (tree->left, f_out);
-        fprintf (f_out, "   push 0\n    je :end_of_while_%d\n", cur_while_ind);
+        fprintf (f_out, "; starting while %d\n    :begin_of_while_%d\n", 
+                        cur_while_ind, cur_while_ind);
+        
+        // condition
+        compile_tree (tree->left, f_out); 
+        fprintf (f_out, "   push 0\n    je :end_of_while_%d\n", 
+                        cur_while_ind);
+
         compile_tree (tree->right, f_out);
-        fprintf (f_out, "    jmp :begin_of_while_%d\n    :end_of_while_%d\n", cur_while_ind, cur_while_ind);
+        fprintf (f_out, "    jmp :begin_of_while_%d\n    :end_of_while_%d\n", 
+                        cur_while_ind, cur_while_ind);
 
         return;
         }
@@ -207,7 +215,11 @@ void compile_tree (LangTree *tree, FILE *f_out)
             while (param != tree)
                 {
                 DEB ("Reading params\n");
-                fprintf (f_out, "  push bx\n  push %d\n  add\n  pop cx\n  pop [cx]\n", cnt);
+                fprintf (f_out, "  push bx\n"
+                                "  push %d\n"
+                                "  add\n"
+                                "  pop cx\n"
+                                "  pop [cx]\n", cnt);
                 cnt++;
                 param = param->parent;
                 }

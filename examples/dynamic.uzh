@@ -7,30 +7,30 @@
 MEM[4999] = 0
 
 # First 2500 cells of memory are for stack-to-free, other 2500 are for memory itself
-freeptr = 2500
-stkfree = 0
+freePtr = 2500
+stkFree = 0
 
 def new(size):
-    MEM[stkfree] = size
-    stkfree = stkfree + 1
-    temp = freeptr
-    freeptr = freeptr + size
+    MEM[stkFree] = size
+    stkFree = stkFree + 1
+    temp = freePtr
+    freePtr = freePtr + size
     return temp
 
 # returns 1 on success, 0 on fail
 def free():
-    if stkfree <= 0:
+    if stkFree <= 0:
         return 0
-    freeptr = freeptr - MEM[stkfree - 1]
-    stkfree = stkfree - 1
+    freePtr = freePtr - MEM[stkFree - 1]
+    stkFree = stkFree - 1
     return 1
 
 def main():
     n = input
     sqrs = new(n)
-    print sqrs
+    print (sqrs)
     cubs = new(3*n)
-    print cubs
+    print (cubs)
 
     print (new(40))
     free()

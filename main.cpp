@@ -6,13 +6,14 @@
 
 int main (int argc, char *argv[])
     {
-    if (argc != 2) {
+    if (argc != 2) 
+        {
         printf (
             "ERROR: wrong number of arguments\n"
             "You shold call \"uzh *name*.casm\"!\n"
         );
         return 0;
-    }
+        }
 
     char *in_name = (char*) calloc (strlen (argv[1]) + 10, sizeof (char));
     strcpy (in_name, argv[1]);
@@ -53,13 +54,11 @@ int main (int argc, char *argv[])
     strcat (asm_call, argv[1]);
     system (asm_call);
 
-    /*
     strcpy (asm_call, argv[1]);
     strcat (asm_call, ".casm");
     printf ("Removing %s\n", asm_call);
     remove (asm_call);
-    */
-   
+
     free (asm_call);
     asm_call = nullptr;
 

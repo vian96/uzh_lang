@@ -1,8 +1,8 @@
 # This magic numbers are from header of cpu
 # language does not suport not-nubers for arrays or defines
 # so we can only use magic numbers ¯\_(ツ)_/¯
-DYNRAM[4999] = 0
-VIDRAM[4000] = 0
+MEM[4999] = 0
+VID[3010] = 0
 
 def main():
     X = 100
@@ -14,7 +14,7 @@ def main():
     x = x0 + R
     while x >= x0 - R:
         y = sqrt (R^2 - (x-x0)^2) / 2
-        VIDRAM[X*(y+y0) + x] = 1
-        VIDRAM[X*(y0-y) + x] = 1
+        VID[X*(y+y0) + x] = 1
+        VID[X*(y0-y) + x] = 1
         x = x - 1
     graph
