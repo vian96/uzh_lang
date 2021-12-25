@@ -28,7 +28,7 @@ If you downloaded this repo without change and folder `uzh_lang` is in the same 
 
 To compile uzh file call `uzh file_name` ***WITHOUT extension***. You can run your app with `app file_name` or simply pass it to your cpu executor. E.g. you can run `uzh examples/ackerman && "examples/ackerman.boac"`.
 
-# Problems
+# Issues
 
 - You can not have more than 100 entities in one line (don't ask why).
 
@@ -62,11 +62,17 @@ To compile uzh file call `uzh file_name` ***WITHOUT extension***. You can run yo
 
 - Remove main function probably?
 
-- Structs
+- Structs (very important), it would also be better to be able to call `struct.func()`
+
+- Dynamic memory management (I need to write malloc and free from c in _uzh_ itself), currently it has only stack-based dynamic memory allocation (see `dynamic.uzh`). Probably, it will be easier after structs
+
+- Chars (not only putchar but also 'c')
+
+- Files (hard)
+
+- Types (hard probably)
 
 - More proper array declaration
-
-- Dynamic memory management (I need to write malloc in _uzh_ itself)
 
 - Change to float ~~lol~~
 
