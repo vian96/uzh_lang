@@ -1,0 +1,30 @@
+x = 0
+MEM[2048] = 0
+
+def main():
+    n = input
+    if n > 2000 || n < 2:
+        print(0-1337)
+        return
+    i = 0
+    while i < n:
+        MEM[i] = input
+        i = i + 1
+    
+    begin = 1
+    while begin < n:
+        elem = MEM[begin]
+        topl = begin - 1
+        while topl >= 0 && elem < MEM[topl]:
+            # print (topl)
+            MEM[topl + 1] = MEM[topl]
+            topl = topl - 1
+
+        MEM[topl + 1] = elem
+        begin = begin + 1
+    
+    i = 0
+    while i < n:
+        print(MEM[i])
+        i = i + 1
+

@@ -1,5 +1,5 @@
 #include "frontend/frontend.h"
-#include "backend/backend.h"
+#include "x86backend/backend.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,7 +35,7 @@ int main (int argc, char *argv[])
 
     char *out_name = (char*) calloc (strlen (argv[1]) + 10, sizeof (char));
     strcpy (out_name, argv[1]);
-    strcat (out_name, ".casm");
+    strcat (out_name, ".asm");
 
     FILE *f_out = fopen (out_name, "w");
     free (out_name);
@@ -50,14 +50,42 @@ int main (int argc, char *argv[])
 
     // setting asm command
     char *asm_call = (char*) calloc (strlen (argv[1]) + 20, sizeof (char));
-    strcpy (asm_call, "asm ");
+    strcpy (asm_call, "x86asm ");
     strcat (asm_call, argv[1]);
     system (asm_call);
 
     strcpy (asm_call, argv[1]);
-    strcat (asm_call, ".casm");
+    strcat (asm_call, ".asm");
     printf ("Removing %s\n", asm_call);
-    remove (asm_call);
+    // remove (asm_call);
+
+
+// this and further is for .casm
+    // char *out_name = (char*) calloc (strlen (argv[1]) + 10, sizeof (char));
+    // strcpy (out_name, argv[1]);
+    // strcat (out_name, ".casm");
+
+    // FILE *f_out = fopen (out_name, "w");
+    // free (out_name);
+    // out_name = nullptr;
+
+    // compile_lang (tree, f_out);
+    // fclose (f_out);
+    // f_out = nullptr;
+
+    // free_lexems (code);
+    // free_tree_lang (tree);
+
+    // // setting asm command
+    // char *asm_call = (char*) calloc (strlen (argv[1]) + 20, sizeof (char));
+    // strcpy (asm_call, "asm ");
+    // strcat (asm_call, argv[1]);
+    // system (asm_call);
+
+    // strcpy (asm_call, argv[1]);
+    // strcat (asm_call, ".casm");
+    // printf ("Removing %s\n", asm_call);
+    // remove (asm_call);
 
     free (asm_call);
     asm_call = nullptr;

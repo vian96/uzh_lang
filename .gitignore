@@ -4,3 +4,4 @@ test.defs.comp
 test_defs.h
 *.casm
 *.boac
+*.obj
